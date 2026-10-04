@@ -10,6 +10,8 @@ See [COMMUNITY.md](COMMUNITY.md) for the current participation model.
 
 This document exists so the technical contribution process can be prepared before it opens later.
 
+Review [RIGHTS_AND_LICENSING.md](RIGHTS_AND_LICENSING.md) before submitting proposals or material. Suggestions may be discussed, but code and production assets will not be integrated until the relevant contribution terms are published.
+
 Future contributors must:
 
 - respect the project's visual and design direction

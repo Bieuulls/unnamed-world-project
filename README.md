@@ -124,8 +124,10 @@ All images currently shown in this repository are **AI-assisted concept art** us
 
 As development advances, concept art will be clearly separated from real prototype screenshots, GIFs and playable builds.
 
-## License Status
+## Rights and Licensing
 
-The final licensing structure has not been selected. Do not assume that code, artwork, story, characters, branding or other project material may be redistributed until the relevant licenses and contribution terms are published.
+The repository is currently available for viewing, discussion and transparent development planning. No general open-source or content license has been granted yet.
 
-See [LICENSE_PLACEHOLDER.md](LICENSE_PLACEHOLDER.md).
+Code, artwork, story, characters, books, branding and trademarks will use separate terms when the relevant contribution and licensing structures are ready.
+
+See [RIGHTS_AND_LICENSING.md](RIGHTS_AND_LICENSING.md).
