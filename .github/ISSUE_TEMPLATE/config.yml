@@ -1,0 +1,6 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Community governance
+    url: https://github.com/Bieuulls/unnamed-world-project/blob/main/GOVERNANCE.md
+    about: Read how proposals, votes, validation and decisions work.
+

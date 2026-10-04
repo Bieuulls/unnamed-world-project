@@ -1,0 +1,26 @@
+name: Decision Review
+description: Request clarification or review of a recorded project decision.
+title: "[Decision Review]: "
+labels:
+  - decision-review
+body:
+  - type: input
+    id: decision
+    attributes:
+      label: Decision ID or link
+      placeholder: D-005 or a URL
+    validations:
+      required: true
+  - type: textarea
+    id: concern
+    attributes:
+      label: What should be reviewed?
+      description: Explain the factual, procedural, technical, legal, or community concern.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Supporting information
+      description: Add evidence or references when available.
+

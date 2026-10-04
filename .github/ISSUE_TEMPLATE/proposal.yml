@@ -1,0 +1,64 @@
+name: Community Proposal
+description: Propose an idea, improvement, community initiative, or future project decision.
+title: "[Proposal]: "
+labels:
+  - proposal
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping shape the project. Please explain the idea clearly enough that other people can evaluate it.
+  - type: input
+    id: summary
+    attributes:
+      label: Proposal summary
+      description: Describe the idea in one or two sentences.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - World / Story
+        - Gameplay
+        - Visual Direction
+        - Community
+        - Education
+        - Accessibility
+        - Technical
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem or opportunity does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Explain what you want the project to do or change.
+    validations:
+      required: true
+  - type: textarea
+    id: tradeoffs
+    attributes:
+      label: Risks, tradeoffs, or conflicts
+      description: Mention costs, complexity, third-party rights, or existing decisions that may be affected.
+  - type: textarea
+    id: help
+    attributes:
+      label: How can you help?
+      description: Optional. Tell us whether you can research, test, design, write, code, review, or otherwise support the proposal.
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Originality
+      options:
+        - label: I am not knowingly submitting third-party copyrighted material as if it were my own.
+          required: true
+
