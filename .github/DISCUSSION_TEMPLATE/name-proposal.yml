@@ -1,0 +1,42 @@
+title: "[Name proposal] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Propose one name for the game, Book Zero, future Chronicles and the wider project identity. Read `NAME_THE_WORLD.md` before submitting.
+  - type: input
+    id: proposed-name
+    attributes:
+      label: Proposed name
+      placeholder: One name only
+    validations:
+      required: true
+  - type: textarea
+    id: meaning
+    attributes:
+      label: Why does this name fit the project?
+      description: Explain the meaning, feeling and connection to the world.
+    validations:
+      required: true
+  - type: input
+    id: pronunciation
+    attributes:
+      label: Pronunciation
+      description: Optional when pronunciation is obvious.
+  - type: textarea
+    id: language-check
+    attributes:
+      label: Known meanings in other languages
+      description: Mention Portuguese, English, Spanish and any other language you checked.
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I am not knowingly copying the name of an existing game, company, book, film or established brand.
+          required: true
+        - label: I understand that suggestions are screened before voting and that the winning candidate still requires legal and availability checks.
+          required: true
+        - label: I will not register domains, social accounts or trademarks on behalf of the project.
+          required: true
+
