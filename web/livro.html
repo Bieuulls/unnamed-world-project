@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livro Zero: Capítulo 1 — O Rio | Leitor Imersivo</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="Leia o Capítulo 1 — O Rio do Livro Zero em um leitor literário imersivo com som ambiente de montanha e modos de leitura.">
+  <meta property="og:title" content="Livro Zero: Capítulo 1 — O Rio | Experiência Literária Imersiva">
+  <meta property="og:image" content="assets/concept/09-scandinavian-river-frontier.jpg">
+
+  <!-- Google Fonts: Cinzel, Cormorant Garamond & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       IMMERSIVE READER — SANCTUARY OF LIVING LITERATURE
+       ========================================================================== */
+    :root {
+      --gold: #d4af37;
+      --gold-light: #f7eed9;
+      --gold-dim: rgba(212, 175, 55, 0.4);
+      --crimson: #8c251d;
+      
+      /* Theme: Fogueira (Default) */
+      --bg-ambient: #07090c;
+      --tome-leather: #16110b;
+      --tome-border: #2c2015;
+      --paper-bg: linear-gradient(135deg, #f8f2e4 0%, #efe5cd 50%, #e2d3b1 100%);
+      --paper-text: #2c2217;
+      --paper-heading: #171109;
+      --paper-quote-border: #8c251d;
+      --paper-shadow: rgba(0, 0, 0, 0.55);
+      --font-reading-size: 1.08rem;
+    }
+
+    /* Pergaminho Real Theme */
+    body.theme-pergaminho {
+      --bg-ambient: #111418;
+      --tome-leather: #201812;
+      --tome-border: #3d2f23;
+      --paper-bg: linear-gradient(135deg, #fffdf8 0%, #f7f1e1 50%, #eee4ca 100%);
+      --paper-text: #241c14;
+      --paper-heading: #1a120b;
+      --paper-quote-border: #9b7238;
+      --paper-shadow: rgba(0, 0, 0, 0.45);
+    }
+
+    /* Noite Sem Estrelas (Dark OLED Mode) */
+    body.theme-noite {
+      --bg-ambient: #020305;
+      --tome-leather: #0b0e13;
+      --tome-border: #18202b;
+      --paper-bg: linear-gradient(135deg, #10151d 0%, #0d1219 50%, #090c10 100%);
+      --paper-text: #d8dee9;
+      --paper-heading: #f3f4f6;
+      --paper-quote-border: #d4af37;
+      --paper-shadow: rgba(0, 0, 0, 0.85);
+    }
+
+    /* Luz da Manhã (Editorial Clean) */
+    body.theme-luz {
+      --bg-ambient: #e5e7eb;
+      --tome-leather: #374151;
+      --tome-border: #4b5563;
+      --paper-bg: #fafaf9;
+      --paper-text: #1f2937;
+      --paper-heading: #111827;
+      --paper-quote-border: #b91c1c;
+      --paper-shadow: rgba(0, 0, 0, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-ambient);
+      color: #f3f4f6;
+      transition: background-color 0.4s ease;
+    }
+
+    /* Ambient Backdrop with Atmospheric Mist */
+    .ambient-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 20%, rgba(20, 28, 38, 0.6) 0%, rgba(5, 7, 10, 0.95) 100%),
+                  url('assets/concept/09-scandinavian-river-frontier.jpg') center/cover no-repeat;
+      filter: brightness(0.28) contrast(1.15) saturate(0.85);
+      z-index: 0;
+      pointer-events: none;
+      transition: filter 0.5s ease;
+    }
+
+    body.theme-noite .ambient-backdrop {
+      filter: brightness(0.12) contrast(1.2);
+    }
+
+    body.theme-luz .ambient-backdrop {
+      display: none;
+    }
+
+    /* Subtle Floating Ember / Fog Particles Container */
+    .ambient-fog {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 60%);
+    }
+
+    /* App Container */
+    .reader-app {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Top Control Bar */
+    .reader-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 28px;
+      background: rgba(8, 11, 16, 0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .zen-mode .reader-header {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .zen-mode .reader-footer {
+      transform: translateY(100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-back-portal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #9ca3af;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .btn-back-portal:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .book-meta-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .book-meta-badge {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold-dim);
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Ambient Audio Controls */
+    .audio-control-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(18, 24, 34, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .audio-btn {
+      background: transparent;
+      border: none;
+      color: #cbd5e1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 6px;
+      border-radius: 4px;
+      transition: color 0.2s;
+    }
+
+    .audio-btn:hover {
+      color: var(--gold);
+    }
+
+    .audio-btn.playing {
+      color: #10b981;
+    }
+
+    .audio-btn.playing .audio-icon {
+      animation: pulseSound 1.5s infinite;
+    }
+
+    @keyframes pulseSound {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .audio-preset-select {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 0.78rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .audio-preset-select option {
+      background: #0f172a;
+      color: #f1f5f9;
+    }
+
+    /* Theme Dropdown / Buttons */
+    .theme-buttons-group {
+      display: flex;
+      gap: 5px;
+      background: rgba(18, 24, 34, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3px;
+      border-radius: 8px;
+    }
+
+    .btn-theme {
+      background: transparent;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: #94a3b8;
+      transition: all 0.2s ease;
+    }
+
+    .btn-theme.active, .btn-theme:hover {
+      background: rgba(212, 175, 55, 0.2);
+      color: #ffffff;
+    }
+
+    /* Font Size Controls */
+    .font-size-group {
+      display: flex;
+      gap: 3px;
+      background: rgba(18, 24, 34, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3px;
+      border-radius: 8px;
+    }
+
+    .btn-font-size {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      transition: all 0.2s;
+    }
+
+    .btn-font-size:hover {
+      color: var(--gold);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Zen Mode Toggle */
+    .btn-zen {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #94a3b8;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-zen:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    /* Main Stage */
+    .reader-main-stage {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    /* Book Tome Stage Container */
+    .book-sanctuary {
+      position: relative;
+      width: 100%;
+      max-width: 920px;
+      perspective: 1200px;
+    }
+
+    /* Real Ribbon Bookmark */
+    .sanctuary-ribbon {
+      position: absolute;
+      top: -14px;
+      right: 75px;
+      width: 24px;
+      height: 85px;
+      background: linear-gradient(to right, #7f1d1d, #b91c1c, #991b1b);
+      border-radius: 0 0 3px 3px;
+      box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.7);
+      z-index: 20;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+      transition: transform 0.3s ease;
+    }
+
+    .sanctuary-ribbon:hover {
+      transform: translateY(4px);
+    }
+
+    /* The Realistic Tome */
+    .book-leather-tome {
+      position: relative;
+      background: var(--tome-leather);
+      border: 12px solid var(--tome-border);
+      border-radius: 14px;
+      box-shadow: 0 30px 70px var(--paper-shadow), 0 0 0 1px rgba(212, 175, 55, 0.25);
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    /* Paper Spread Interior */
+    .parchment-sheet {
+      background: var(--paper-bg);
+      color: var(--paper-text);
+      padding: 55px 65px 45px 65px;
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: inset 0 0 50px rgba(120, 95, 55, 0.16), inset 0 0 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Spine Fold Effect */
+    .parchment-sheet::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 32px;
+      height: 100%;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.16), transparent);
+      pointer-events: none;
+    }
+
+    /* Page Switch Visibility */
+    .story-page {
+      display: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .story-page.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Header Strip on each page */
+    .page-head-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      font-weight: 700;
+      color: #8c734b;
+      border-bottom: 1px solid rgba(140, 115, 75, 0.28);
+      padding-bottom: 8px;
+      margin-bottom: 24px;
+      font-family: 'Cinzel', serif;
+    }
+
+    body.theme-noite .page-head-strip {
+      color: var(--gold);
+      border-color: rgba(212, 175, 55, 0.25);
+    }
+
+    .story-page-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.85rem;
+      color: var(--paper-heading);
+      letter-spacing: 0.04em;
+      margin-bottom: 22px;
+      text-align: left;
+    }
+
+    /* Body Text Styling */
+    .story-prose {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: var(--font-reading-size);
+      line-height: 1.85;
+      text-align: left;
+    }
+
+    .story-prose p {
+      margin-bottom: 18px;
+    }
+
+    /* Drop Cap */
+    .story-prose .drop-cap::first-letter {
+      float: left;
+      font-family: 'Cinzel', serif;
+      font-size: 3.8rem;
+      line-height: 0.8;
+      padding-top: 4px;
+      padding-right: 12px;
+      padding-bottom: 2px;
+      color: var(--crimson);
+      font-weight: 700;
+    }
+
+    body.theme-noite .story-prose .drop-cap::first-letter {
+      color: var(--gold);
+    }
+
+    /* Pull Quotes / Dialogue Quotes */
+    .story-blockquote {
+      margin: 24px 0;
+      padding: 14px 22px;
+      border-left: 3px solid var(--paper-quote-border);
+      background: rgba(140, 115, 75, 0.08);
+      font-style: italic;
+      font-size: calc(var(--font-reading-size) * 1.05);
+      color: var(--paper-heading);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .page-footer-index {
+      text-align: center;
+      font-size: 0.82rem;
+      font-family: 'Cinzel', serif;
+      color: #8c734b;
+      margin-top: 30px;
+      letter-spacing: 0.12em;
+    }
+
+    /* Cover Styling */
+    .page-cover {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      min-height: 480px;
+    }
+
+    .cover-ornament {
+      font-size: 1.1rem;
+      color: #8c734b;
+      letter-spacing: 0.4em;
+      margin: 16px 0;
+    }
+
+    body.theme-noite .cover-ornament {
+      color: var(--gold);
+    }
+
+    .cover-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.24em;
+      font-weight: 700;
+      color: #7a633f;
+      margin-bottom: 14px;
+    }
+
+    body.theme-noite .cover-eyebrow {
+      color: #a3895e;
+    }
+
+    .cover-main-title {
+      font-family: 'Cinzel', serif;
+      font-size: 3.2rem;
+      color: var(--paper-heading);
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .cover-subtitle {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem;
+      color: var(--crimson);
+      font-style: italic;
+      margin-bottom: 22px;
+    }
+
+    body.theme-noite .cover-subtitle {
+      color: var(--gold);
+    }
+
+    .cover-divider {
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #8c734b, transparent);
+      margin-bottom: 26px;
+    }
+
+    .cover-quote {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: var(--paper-text);
+      max-width: 520px;
+      margin-bottom: 35px;
+    }
+
+    .cover-footer {
+      border-top: 1px solid rgba(140, 115, 75, 0.3);
+      padding-top: 18px;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .cover-author {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--paper-heading);
+      letter-spacing: 0.06em;
+    }
+
+    .cover-era {
+      font-size: 0.78rem;
+      color: #8c734b;
+      margin-top: 4px;
+      letter-spacing: 0.08em;
+    }
+
+    /* Navigation Arrows & Controls Bar */
+    .tome-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 26px;
+      background: #0b0906;
+      border-top: 1px solid #231c15;
+    }
+
+    body.theme-noite .tome-controls {
+      background: #06090e;
+      border-color: #161e2a;
+    }
+
+    body.theme-luz .tome-controls {
+      background: #e5e7eb;
+      border-color: #d1d5db;
+    }
+
+    .btn-nav-page {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      color: var(--gold-light);
+      font-size: 0.86rem;
+      font-weight: 600;
+      padding: 8px 18px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    body.theme-luz .btn-nav-page {
+      color: #1f2937;
+      border-color: #9ca3af;
+    }
+
+    .btn-nav-page:hover:not(:disabled) {
+      background: rgba(212, 175, 55, 0.18);
+      border-color: var(--gold);
+      color: #ffffff;
+      transform: translateX(0);
+    }
+
+    .btn-nav-page:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .page-indicator-badge {
+      font-family: 'Cinzel', serif;
+      font-size: 0.92rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+
+    /* Chapter Quick Drawer / TOC Button */
+    .btn-drawer-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--gold);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-drawer-toggle:hover {
+      background: rgba(212, 175, 55, 0.15);
+    }
+
+    /* Sliding Drawer for Table of Contents */
+    .toc-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 340px;
+      height: 100%;
+      background: rgba(12, 16, 22, 0.96);
+      backdrop-filter: blur(18px);
+      border-left: 1px solid rgba(212, 175, 55, 0.25);
+      box-shadow: -15px 0 40px rgba(0, 0, 0, 0.8);
+      z-index: 200;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      padding: 28px 24px;
+    }
+
+    .toc-drawer.open {
+      transform: translateX(0);
+    }
+
+    .toc-drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .toc-drawer-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+    }
+
+    .btn-close-drawer {
+      background: transparent;
+      border: none;
+      color: #9ca3af;
+      font-size: 1.4rem;
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+    }
+
+    .btn-close-drawer:hover {
+      color: #ffffff;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .toc-item-btn {
+      width: 100%;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 6px;
+      padding: 12px 14px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      transition: all 0.2s;
+    }
+
+    .toc-item-btn:hover, .toc-item-btn.active {
+      background: rgba(212, 175, 55, 0.12);
+      border-color: var(--gold);
+      color: #ffffff;
+    }
+
+    .toc-item-num {
+      font-size: 0.72rem;
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.1em;
+    }
+
+    /* Bottom Reading Status Bar */
+    .reader-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 28px;
+      background: rgba(8, 11, 16, 0.82);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.78rem;
+      color: #94a3b8;
+      position: sticky;
+      bottom: 0;
+      z-index: 100;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .reading-progress-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .progress-bar-track {
+      flex: 1;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 12.5%;
+      background: linear-gradient(to right, #8c251d, var(--gold));
+      transition: width 0.3s ease;
+    }
+
+    .keyboard-hint {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .kbd-chip {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.72rem;
+      color: #e2e8f0;
+      font-family: monospace;
+    }
+
+    /* Exit Zen Button (floating when in zen) */
+    .btn-exit-zen {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 300;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .zen-mode .btn-exit-zen {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .reader-header {
+        padding: 12px 16px;
+      }
+      .book-meta-title {
+        font-size: 0.82rem;
+      }
+      .audio-control-group, .font-size-group, .btn-zen {
+        display: none;
+      }
+      .parchment-sheet {
+        padding: 35px 22px 30px 22px;
+        min-height: 480px;
+      }
+      .cover-main-title {
+        font-size: 2.3rem;
+      }
+      .story-page-title {
+        font-size: 1.4rem;
+      }
+      .story-prose {
+        font-size: 1rem;
+        line-height: 1.75;
+      }
+      .sanctuary-ribbon {
+        right: 25px;
+        height: 50px;
+      }
+      .keyboard-hint {
+        display: none;
+      }
+      .tome-controls {
+        padding: 12px 16px;
+      }
+      .btn-nav-page {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Atmospheric Background -->
+  <div class="ambient-backdrop"></div>
+  <div class="ambient-fog"></div>
+
+  <!-- Exit Zen Floating Trigger -->
+  <button type="button" class="btn-exit-zen" id="btnExitZen" aria-label="Sair do Modo Foco">
+    <span>✕ Sair do Modo Foco (Z)</span>
+  </button>
+
+  <div class="reader-app" id="readerApp">
+
+    <!-- Top Sticky Control Header -->
+    <header class="reader-header">
+      <div class="header-left">
+        <a href="index.html#livros" class="btn-back-portal" title="Retornar à página principal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          <span>Portal</span>
+        </a>
+        <div class="book-meta-title">
+          <span>LIVRO ZERO</span>
+          <span class="book-meta-badge">AUTORAL • FUNDADOR</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Ambient Soundscapes via Web Audio API -->
+        <div class="audio-control-group">
+          <button type="button" id="btnAudioToggle" class="audio-btn" aria-label="Alternar Som Ambiente">
+            <span class="audio-icon">🎧</span>
+            <span id="audioStateText">Ambiente</span>
+          </button>
+          <select id="audioPresetSelect" class="audio-preset-select" aria-label="Selecione o Som Ambiente">
+            <option value="rain">🌧️ Chuva & Vento</option>
+            <option value="river">🌊 Rio Gelado</option>
+            <option value="fire">🔥 Fogueira na Noite</option>
+          </select>
+        </div>
+
+        <!-- Themes -->
+        <div class="theme-buttons-group">
+          <button type="button" class="btn-theme active" data-theme="fogueira" title="Tema Fogueira">🕯️</button>
+          <button type="button" class="btn-theme" data-theme="pergaminho" title="Tema Pergaminho">📜</button>
+          <button type="button" class="btn-theme" data-theme="noite" title="Tema Noite OLED">🌑</button>
+          <button type="button" class="btn-theme" data-theme="luz" title="Tema Luz da Manhã">☀️</button>
+        </div>
+
+        <!-- Typography Size -->
+        <div class="font-size-group">
+          <button type="button" id="btnFontDec" class="btn-font-size" title="Diminuir Fonte">A-</button>
+          <button type="button" id="btnFontInc" class="btn-font-size" title="Aumentar Fonte">A+</button>
+        </div>
+
+        <!-- Zen / Focus Mode -->
+        <button type="button" id="btnZenToggle" class="btn-zen" title="Modo Foco / Zen (Tecla Z)">
+          <span>Zen</span>
+        </button>
+
+        <!-- Table of Contents Toggle -->
+        <button type="button" id="btnOpenToc" class="btn-drawer-toggle" aria-label="Abrir Sumário">
+          <span>Sumário</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Tome Stage -->
+    <main class="reader-main-stage">
+      <div class="book-sanctuary">
+        <!-- Physical Ribbon Bookmark -->
+        <div class="sanctuary-ribbon" title="Marcador de Página"></div>
+
+        <div class="book-leather-tome" id="bookLeatherTome">
+          <div class="parchment-sheet" id="parchmentSheet">
+
+            <!-- ============================================================
+                 PÁGINA 0: CAPA DO MANUSCRITO
+                 ============================================================ -->
+            <article class="story-page active" data-index="0" data-title="Capa do Manuscrito">
+              <div class="page-cover">
+                <div class="cover-ornament top">✧ ✦ ✧</div>
+                <div class="cover-eyebrow">CRÔNICAS DO MUNDO SEM NOME</div>
+                <h1 class="cover-main-title">LIVRO ZERO</h1>
+                <div class="cover-subtitle">Capítulo 1 — O Rio</div>
+                <div class="cover-divider"></div>
+                <p class="cover-quote">
+                  “O mundo não existe para servir ao homem.<br>
+                  O mundo se lembra.<br>
+                  Não há destino. Há escolhas.”
+                </p>
+                <div class="cover-footer">
+                  <div class="cover-author">Obra Literária Original Autoral do Fundador & Diretor Criativo</div>
+                  <div class="cover-era">Edição Original em Língua Portuguesa • 2026</div>
+                </div>
+                <div class="cover-ornament bottom">✧ ✦ ✧</div>
+              </div>
+            </article>
+
+            <!-- ============================================================
+                 PÁGINA 1: ATO I — A RODA E A LAMA
+                 ============================================================ -->
+            <article class="story-page" data-index="1" data-title="I. A Roda e a Lama">
+              <div class="page-head-strip">
+                <span>CAPÍTULO 1</span>
+                <span>PARTE I: A ESTRADA DE PINHEIROS</span>
+              </div>
+              <h2 class="story-page-title">A Roda e a Lama</h2>
+              <div class="story-prose">
+                <p class="drop-cap">A roda da carroça afundou outra vez. Tomás ouviu o estalo da madeira antes mesmo de sentir o veículo inclinar.</p>
+                <p>— Para! Para!</p>
+                <p>Puxou as rédeas com força. O cavalo já tinha parado por conta própria. Estava cansado demais para discutir com qualquer homem. Tomás desceu e afundou a bota na lama até quase o tornozelo.</p>
+                <p>— Ótimo.</p>
+                <p>Helena abriu a lona atrás dele.</p>
+                <p>— Quebrou?<br>
+                — Ainda não.<br>
+                — Isso quer dizer que vai quebrar?</p>
+                <p>Ele olhou para a roda.</p>
+                <p>— Quer dizer que ainda não quebrou.</p>
+                <p>Ela fez uma cara que dizia que aquela resposta não ajudava em nada. Daniel apareceu atrás da mãe.</p>
+                <p>— Posso descer?<br>
+                — Não.<br>
+                — Pai?<br>
+                — Sua mãe já respondeu.<br>
+                — Mas eu posso ajudar.</p>
+                <p>Tomás se abaixou junto à roda.</p>
+                <p>— Então fica aí em cima e não faz a Clara acordar.</p>
+                <p>Daniel bufou alguma coisa que ninguém entendeu. Tomás enfiou as duas mãos debaixo da madeira e tentou levantar a carroça. Nada. A lama sugava a roda. Ele tentou de novo. Dessa vez ouviu passos atrás de si.</p>
+                <p>— Você está ficando velho.</p>
+                <p>Tomás nem precisou olhar.</p>
+                <p>— E você continua falando demais.</p>
+                <p>Elias largou uma mochila na beira da estrada e se aproximou.</p>
+                <p>— Se eu não falasse, você passaria o dia inteiro ouvindo só sua própria reclamação.<br>
+                — Eu estava muito bem sozinho.<br>
+                — Estava, sim. Dá para ver.</p>
+                <p>Elias se abaixou ao lado dele. Os dois empurraram. A roda saiu da lama com um som grosso, quase como alguma coisa sendo arrancada do chão. O cavalo deu dois passos. Tomás cambaleou para frente. Elias começou a rir.</p>
+                <p>— Continua rindo.<br>
+                — Vou.<br>
+                — Quando for sua carroça, eu fico olhando.<br>
+                — A minha está ali atrás. Com três sacos a mais porque você resolveu que precisava trazer metade da oficina.</p>
+                <p>Tomás limpou as mãos na calça.</p>
+                <p>— Ferramenta não nasce em árvore.<br>
+                — Ainda.<br>
+                — O quê?<br>
+                — Nada.</p>
+              </div>
+              <div class="page-footer-index">Página 1</div>
+            </article>
+
+            <!-- ============================================================
+                 PÁGINA 2: ATO II — O SOM DAS ÁGUAS
+                 ============================================================ -->
+            <article class="story-page" data-index="2" data-title="II. O Som do Rio">
+              <div class="page-head-strip">
+                <span>CAPÍTULO 1</span>
+                <span>PARTE II: O RUIDO NAS ÁRVORES</span>
+              </div>
+              <h2 class="story-page-title">O Som Chegou Antes da Água</h2>
+              <div class="story-prose">
+                <p class="drop-cap">Elias pegou a mochila. Tinha pouco mais de quarenta anos, barba curta já começando a clarear no queixo e aquele jeito de andar como se nunca estivesse realmente com pressa, mesmo quando todos os outros estavam.</p>
+                <p>A esposa dele, Marta, vinha algumas carroças atrás com os dois filhos. Samuel, o mais velho, tinha praticamente a mesma idade de Daniel. Os dois brigavam por qualquer coisa e cinco minutos depois estavam juntos de novo. A menina, Ruth, tinha seis anos e seguia Elias para todo lado quando ele deixava.</p>
+                <p>— Tem alguma coisa na frente — disse Elias.</p>
+                <p>Tomás olhou estrada acima. A fila tinha parado. Não era incomum. Nos últimos dias, qualquer árvore caída, roda quebrada ou animal manco era suficiente para prender vinte carroças no mesmo lugar.</p>
+                <p>— Quanto falta?<br>
+                — Para?<br>
+                — Para seja lá o que está segurando todo mundo.</p>
+                <p>Elias apontou para a mata.</p>
+                <p>— Uns trezentos metros.</p>
+                <p>Tomás olhou para o céu. A chuva tinha diminuído, mas não parado. Já não lembrava da última vez que tinha colocado uma roupa seca.</p>
+                <p>— Vamos ver.</p>
+                <p>Helena ouviu.</p>
+                <p>— Tomás.<br>
+                — O quê?<br>
+                — Não demora.<br>
+                — Não vou.</p>
+                <p>Ela olhou para Elias.</p>
+                <p>— E não deixa ele fazer besteira.</p>
+                <p>Elias abriu os braços.</p>
+                <p>— Por que sempre eu?<br>
+                — Porque ele escuta você.</p>
+                <p>Tomás riu.</p>
+                <p>— Isso é mentira.<br>
+                — Eu sei.</p>
+                <p>Helena fechou a lona. Elias ficou olhando.</p>
+                <p>— Sua mulher gosta mais de mim.<br>
+                — Continua falando.</p>
+                <p>Seguiram a pé. A chuva tinha deixado a estrada quase irreconhecível. O caminho entre os pinheiros virara um corredor de lama, pedras soltas e marcas profundas de rodas. Quando chegaram perto das primeiras carroças, viram gente descendo. Homens se juntavam mais adiante. Ninguém gritava. Isso preocupou Tomás mais do que se estivessem gritando.</p>
+                <p>— O que houve? — perguntou a um rapaz que vinha na direção deles.</p>
+                <p>O rapaz passou a mão pelo cabelo molhado.</p>
+                <p>— Rio.<br>
+                — E?<br>
+                — Vai olhar.</p>
+              </div>
+              <div class="page-footer-index">Página 2</div>
+            </article>
+
+            <!-- ============================================================
+                 PÁGINA 3: ATO III — A LINHA DO MAPA
+                 ============================================================ -->
+            <article class="story-page" data-index="3" data-title="III. A Linha do Mapa">
+              <div class="page-head-strip">
+                <span>CAPÍTULO 1</span>
+                <span>PARTE III: A LINHA DO MAPA</span>
+              </div>
+              <h2 class="story-page-title">A Linha do Mapa</h2>
+              <div class="story-prose">
+                <p class="drop-cap">Tomás e Elias continuaram. O som apareceu antes da água. Um barulho grave, contínuo, escondido atrás das árvores. Elias diminuiu o passo. Tomás percebeu.</p>
+                <p>— Já está com medo?<br>
+                — De água que faz esse barulho? Estou.<br>
+                — Você nada.<br>
+                — É exatamente por isso.</p>
+                <p>Saíram da mata. O rio ocupava quase todo o vale estreito diante deles. Nos mapas, era apenas uma linha. Ali, parecia outra coisa.</p>
+                <p>A água vinha rápida, escura, inchada pelas chuvas nas montanhas. Batia em pedras enormes, quebrava em espuma, passava por cima de troncos que tinham sido arrancados de algum lugar rio acima. Do outro lado, a floresta subia pela encosta. Nada ali parecia impossível. Mas também nada parecia fácil.</p>
+                <p>Silas estava junto da margem com outros homens. Tomás se aproximou.</p>
+                <p>— É aqui?</p>
+                <p>Silas assentiu. Era um homem grande, mais largo que alto, com mãos que pareciam feitas para segurar madeira.</p>
+                <p>— O caminho continua do outro lado.<br>
+                — Quem decidiu isso?<br>
+                — O mapa.<br>
+                — Então o mapa pode atravessar primeiro.</p>
+                <p>Elias deu uma risada curta. Silas não.</p>
+                <p>— Encontramos um trecho mais raso uns duzentos metros acima.<br>
+                — Quanto?<br>
+                Silas levantou a mão na altura da cintura.<br>
+                — Sua cintura ou a minha?<br>
+                — Mais ou menos.<br>
+                — Isso não é profundidade.<br>
+                — Eu sei.</p>
+                <p>Elias deixou a mochila no chão.</p>
+                <p>— Vou ver.</p>
+                <p>Tomás segurou o braço dele.</p>
+                <p>— Não vai sozinho.<br>
+                — Não vou atravessar. Só olhar.<br>
+                — Você acabou de dizer que estava com medo.<br>
+                — Estou. Por isso vou olhar.</p>
+                <p>Silas apontou para dois homens: “Levem corda.” Foram os quatro. Tomás ficou. Observou Elias caminhar pela margem até desaparecer atrás das árvores. Só então percebeu Daniel vindo na direção dele.</p>
+                <p>— Eu mandei você ficar na carroça.<br>
+                — A mãe deixou.</p>
+                <p>Helena levantou a mão de longe, como se confirmasse.</p>
+                <p>— Fica longe da água.<br>
+                — Eu sei.<br>
+                — Daniel.<br>
+                — O quê?<br>
+                — Você fala demais quando está nervoso.<br>
+                — Eu não estou nervoso.<br>
+                — Está bom.</p>
+              </div>
+              <div class="page-footer-index">Página 3</div>
+            </article>
+
+            <!-- ============================================================
+                 PÁGINA 4: ATO IV — A CORDA DE MARGEM A MARGEM
+                 ============================================================ -->
+            <article class="story-page" data-index="4" data-title="IV. A Corda Esticada">
+              <div class="page-head-strip">
+                <span>CAPÍTULO 1</span>
+                <span>PARTE IV: DE MARGEM A MARGEM</span>
+              </div>
+              <h2 class="story-page-title">A Corda Esticada</h2>
+              <div class="story-prose">
+                <p class="drop-cap">Elias voltou quase meia hora depois. Estava molhado até a cintura.</p>
+                <p>— Entrou?<br>
+                — Um pouco.<br>
+                — Você disse que só ia olhar.<br>
+                — Olhei de dentro.</p>
+                <p>Silas se aproximou. Elias pegou a corda das mãos de um dos homens.</p>
+                <p>— Dá para atravessar gente. Carroça, não desse jeito. Tem uma faixa de pedras mais acima. A corrente é forte, mas o fundo é melhor. Vamos amarrar uma corda de margem a margem. Crianças e mulheres primeiro. Pouca carga.</p>
+                <p>Jonas, um homem mais velho, balançou a cabeça: “Estamos há semanas andando. Não podemos perder tudo agora.”</p>
+                <p>— Então não vamos correr — respondeu Elias com calma. — Vamos fazer direito.</p>
+                <p>A primeira travessia foi dele. Tirou o casaco, amarrou a corda na cintura e entrou. A água chegou aos joelhos, depois às coxas. Na metade do rio, bateu acima da cintura. Ele parou, firmou o pé, esperou. Não caminhava reto: ia de lado, cedendo um pouco para a corrente e depois recuperando.</p>
+                <blockquote class="story-blockquote">“Se tentar brigar com a água, perde.”</blockquote>
+                <p>Do outro lado, Elias alcançou uma pedra maior, subiu e amarrou a corda firme em uma árvore antiga. Silas prendeu a outra ponta. Puxaram até a linha esticar tensa sobre a correnteza.</p>
+                <p>— Funciona — disse Elias ao retornar segurando nela. Tomás entregou o casaco. “É seguro?” Elias vestiu o casaco molhado: “Não. Mas dá para atravessar.”</p>
+                <p>As primeiras famílias passaram devagar, uma pessoa de cada vez. Helena atravessou com Clara nos braços. Tomás segurou Daniel. A água estava congelante. No trecho mais fundo, Daniel perdeu o apoio por um instante, mas Tomás segurou firme em sua gola. Chegaram ao outro lado em segurança.</p>
+                <p>Helena ajeitou o casaco do marido: “Só não inventa coragem onde não precisa.” Tomás sorriu: “Faz todo dia.” Ele beijou a testa dela e voltou para a água.</p>
+              </div>
+              <div class="page-footer-index">Página 4</div>
+            </article>
+
+            <!-- ============================================================
+                 PÁGINA 5: ATO V — O RESGATE DE NOAH
+                 ============================================================ -->
+            <article class="story-page" data-index="5" data-title="V. O Resgate de Noah">
+              <div class="page-head-strip">
+                <span>CAPÍTULO 1</span>
+                <span>PARTE V: O MENINO NA CORRENTEZA</span>
+              </div>
+              <h2 class="story-page-title">O Mergulho de Elias</h2>
+              <div class="story-prose">
+                <p class="drop-cap">No começo da tarde, tinham passado mais da metade das famílias. Foi quando o cavalo escorregou. Uma carroça pequena atravessava quase vazia; o animal pisou em falso e a madeira virou. Dois homens correram. Um deles soltou a corda principal por meros segundos. Foi o suficiente.</p>
+                <p>A mãe de Noah atravessava logo atrás. O menino de oito anos perdeu o equilíbrio. A correnteza impiedosa levou as pernas dele. A mãe segurou a manga por um instante e perdeu.</p>
+                <p>— Noah! — gritou Silas, paralisado de pavor.</p>
+                <p>Elias já estava correndo. Jogou o casaco no chão. Tomás gritou: “Espera a corda!” Elias nem olhou. Correu pela margem para ganhar distância e se jogou de lado, deixando a corrente levá-lo com velocidade assustadora.</p>
+                <p>Noah submergiu. Elias mergulhou. Por longos segundos de agonia, ninguém viu nenhum dos dois na água turva.</p>
+                <p>Então Elias emergiu, com o braço firme em volta do peito de Noah. A água os arrastava em direção às pedras pontiagudas. Elias conseguiu agarrar as raízes grossas de uma árvore curva na margem.</p>
+                <p>— CORDA! — rugiu ele, escorregando.</p>
+                <p>Tomás correu e arremessou a linha com precisão. Elias prendeu o braço. Puxaram primeiro o menino, depois o homem exausto. Noah caiu na lama, imóvel. A mãe se jogou ao lado dele em prantos.</p>
+                <p>Elias se arrastou de joelhos, virou a criança e pressionou as costas com força. Noah tossiu água. Uma vez, duas. Respirou. Silas caiu de joelhos e abraçou o ombro de Elias sem conseguir articular palavras.</p>
+                <p>Tomás aproximou-se do amigo ensopado e trêmulo: “Você é um idiota. Podia ter ido junto.” Elias passou a mão no rosto: “Podia... Mas prova que eu ainda sei nadar.”</p>
+              </div>
+              <div class="page-footer-index">Página 5</div>
+            </article>
+
+            <!-- ============================================================
+                 PÁGINA 6: ATO VI — A FÚRIA DA ENXURRADA
+                 ============================================================ -->
+            <article class="story-page" data-index="6" data-title="VI. A Tromba d'Água">
+              <div class="page-head-strip">
+                <span>CAPÍTULO 1</span>
+                <span>PARTE VI: A ENXURRADA DAS MONTANHAS</span>
+              </div>
+              <h2 class="story-page-title">A Fúria das Águas</h2>
+              <div class="story-prose">
+                <p class="drop-cap">A chuva engrossou com violência. A água já cobria as pedras de apoio. Marta, Ruth e Samuel atravessaram com segurança. Elias recusou-se a ir: “Cinco minutos. Ainda tem gente deste lado.”</p>
+                <p>A penúltima carroça entrou no leito com ferramentas e dois barris. De repente, um estalo ecoou do vale alto. Parecia uma floresta inteira despencando. Elias olhou para cima do rio. Seu rosto mudou.</p>
+                <p>— Saiam da água. SAIAM DA ÁGUA!</p>
+                <p>A enxurrada desceu com violência incalculável. Uma muralha escura de água trouxe troncos, folhas e pedregulhos. A carroça tombou num giro violento; um barril atingiu um homem, que afundou. Elias saltou até ele e o impulsionou contra uma pedra segura: “Segura!”</p>
+                <p>Foi quando o tronco colossal veio. Arrancado pela raiz, desceu girando como aríete. Não atingiu Elias em cheio, mas a onda de choque o arremessou no vazio. Ele perdeu o chão e agarrou a corda esticada com as duas mãos.</p>
+                <p>Tomás correu em desespero pela margem, puxando com outros homens: “SEGURA! NÃO SOLTA!”</p>
+                <p>A correnteza brutal arrancava o corpo de Elias para baixo. A água espumava sobre seu rosto. Uma mão escorregou da fibra molhada. Ele tentou agarrar de novo, mas a segunda mão cedeu. A corrente o engoliu.</p>
+                <p>Tomás largou a ponta e correu pela encosta aos berros: “ELIAS!”</p>
+                <p>Elias foi jogado contra uma rocha, submergiu e reapareceu trezentos metros abaixo, lutando para manter os olhos abertos. Conseguiu se segurar momentaneamente em uma pedra. Tomás arremessou a corda com toda a força que restava nos braços. Caiu curta.</p>
+                <blockquote class="story-blockquote">“Elias olhou para ele. Tomás nunca esqueceu aquele olhar. Não havia heroísmo nele. Nem calma. Era medo.”</blockquote>
+                <p>A água varreu a pedra. Elias foi levado para sempre nas curvas escuras do vale.</p>
+              </div>
+              <div class="page-footer-index">Página 6</div>
+            </article>
+
+            <!-- ============================================================
+                 PÁGINA 7: ATO VII — O SILÊNCIO DA NOITE
+                 ============================================================ -->
+            <article class="story-page" data-index="7" data-title="VII. O Silêncio da Noite">
+              <div class="page-head-strip">
+                <span>CAPÍTULO 1</span>
+                <span>PARTE VII: A MARGEM OPOSTA</span>
+              </div>
+              <h2 class="story-page-title">O Silêncio da Noite</h2>
+              <div class="story-prose">
+                <p class="drop-cap">Tomás correu pela margem até a vegetação fechar o desfiladeiro. Gritou até a voz se transformar em um sussurro rasgado na garganta. Silas o alcançou na penumbra da floresta.</p>
+                <p>— Tomás... Está escuro. A água está subindo.<br>
+                — Ele sabe nadar! Você viu o Noah. Ele sabe nadar!<br>
+                Silas apenas baixou os olhos.</p>
+                <p>Procuraram até as sombras engolirem qualquer vestígio. Não acharam Elias. Nem o casaco, nem uma bota, nem sangue. Apenas o som infinito da torrente.</p>
+                <p>Quando Tomás retornou ao acampamento, fogueiras débeis ardiam contra o vento frio da noite. Marta estava em pé, imóvel. Ruth dormia sob a manta de Helena. Samuel vigiava as chamas. Marta encarou Tomás:</p>
+                <p>— Onde você viu ele por último?<br>
+                — Talvez trezentos metros abaixo. Talvez mais.<br>
+                Ela assentiu com uma firmeza dolorosa:<br>
+                — Amanhã a gente procura.</p>
+                <p>Helena limpou em silêncio o corte sangrento no braço de Tomás. Daniel permaneceu estático diante do fogo, encarando o rio escuro, talvez esperando que Elias surgisse entre os pinheiros, molhado e reclamando do frio.</p>
+                <p>Nas sombras, a voz pequena de Samuel quebrou o silêncio:</p>
+                <p>— O pai sabia onde a gente estava?<br>
+                — Sabia — respondeu Marta.<br>
+                — Então ele volta?<br>
+                Ela cobriu o menino com a manta gasta.<br>
+                — Dorme, Samuel. Dorme.</p>
+                <blockquote class="story-blockquote" style="border-left: 3px solid #8c251d; font-weight: 600; margin-top: 26px; color: var(--paper-heading);">
+                  Ninguém dormiu direito naquela noite.<br>
+                  O rio não ficou mais baixo.<br>
+                  E Elias não voltou.
+                </blockquote>
+              </div>
+              <div class="page-footer-index">Página 7</div>
+            </article>
+
+          </div><!-- /parchment-sheet -->
+
+          <!-- Navigation Controls Bar -->
+          <footer class="tome-controls">
+            <button type="button" id="btnPagePrev" class="btn-nav-page" aria-label="Página Anterior">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+              <span>Página Anterior</span>
+            </button>
+            <div class="page-indicator-badge" id="pageIndicatorBadge">Página 1 de 8</div>
+            <button type="button" id="btnPageNext" class="btn-nav-page" aria-label="Próxima Página">
+              <span>Próxima Página</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </footer>
+
+        </div><!-- /book-leather-tome -->
+      </div><!-- /book-sanctuary -->
+    </main>
+
+    <!-- Bottom Reading Progress & Keyboard Hints -->
+    <footer class="reader-footer">
+      <div class="reading-progress-wrapper">
+        <span>Progresso:</span>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+        <span id="progressPercent">12%</span>
+      </div>
+
+      <div class="keyboard-hint">
+        <span>Navegar: <span class="kbd-chip">←</span> / <span class="kbd-chip">→</span></span>
+        <span>Modo Foco: <span class="kbd-chip">Z</span></span>
+        <span>Áudio: <span class="kbd-chip">M</span></span>
+      </div>
+    </footer>
+
+    <!-- Table of Contents Sliding Drawer -->
+    <aside class="toc-drawer" id="tocDrawer" aria-label="Sumário de Capítulos">
+      <div class="toc-drawer-header">
+        <h3 class="toc-drawer-title">Sumário do Livro</h3>
+        <button type="button" class="btn-close-drawer" id="btnCloseToc" aria-label="Fechar Sumário">✕</button>
+      </div>
+      <ul class="toc-list" id="tocList">
+        <li>
+          <button type="button" class="toc-item-btn active" data-target-page="0">
+            <span class="toc-item-num">CAPA</span>
+            <strong>Livro Zero: O Rio</strong>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="toc-item-btn" data-target-page="1">
+            <span class="toc-item-num">ATO I</span>
+            <strong>A Roda e a Lama</strong>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="toc-item-btn" data-target-page="2">
+            <span class="toc-item-num">ATO II</span>
+            <strong>O Som Chegou Antes da Água</strong>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="toc-item-btn" data-target-page="3">
+            <span class="toc-item-num">ATO III</span>
+            <strong>A Linha do Mapa</strong>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="toc-item-btn" data-target-page="4">
+            <span class="toc-item-num">ATO IV</span>
+            <strong>A Corda Esticada</strong>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="toc-item-btn" data-target-page="5">
+            <span class="toc-item-num">ATO V</span>
+            <strong>O Mergulho de Elias</strong>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="toc-item-btn" data-target-page="6">
+            <span class="toc-item-num">ATO VI</span>
+            <strong>A Fúria das Águas</strong>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="toc-item-btn" data-target-page="7">
+            <span class="toc-item-num">ATO VII</span>
+            <strong>O Silêncio da Noite</strong>
+          </button>
+        </li>
+      </ul>
+    </aside>
+
+  </div><!-- /reader-app -->
+
+  <!-- ========================================================================
+       IMMERSIVE AUDIO & READER LOGIC
+       ======================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const pages = document.querySelectorAll('.story-page');
+      const totalPages = pages.length;
+      let currentPage = 0;
+
+      const btnPrev = document.getElementById('btnPagePrev');
+      const btnNext = document.getElementById('btnPageNext');
+      const indicator = document.getElementById('pageIndicatorBadge');
+      const progressFill = document.getElementById('progressBarFill');
+      const progressPercent = document.getElementById('progressPercent');
+      const tome = document.getElementById('bookLeatherTome');
+      const tocDrawer = document.getElementById('tocDrawer');
+      const btnOpenToc = document.getElementById('btnOpenToc');
+      const btnCloseToc = document.getElementById('btnCloseToc');
+      const tocButtons = document.querySelectorAll('.toc-item-btn');
+      const btnZenToggle = document.getElementById('btnZenToggle');
+      const btnExitZen = document.getElementById('btnExitZen');
+
+      // ----------------------------------------------------
+      // PAGE NAVIGATION
+      // ----------------------------------------------------
+      function goToPage(idx) {
+        if (idx < 0 || idx >= totalPages) return;
+        currentPage = idx;
+
+        pages.forEach((p, i) => {
+          p.classList.toggle('active', i === currentPage);
+        });
+
+        tocButtons.forEach((btn, i) => {
+          btn.classList.toggle('active', i === currentPage);
+        });
+
+        if (indicator) {
+          indicator.textContent = `Página ${currentPage + 1} de ${totalPages}`;
+        }
+
+        const pct = Math.round(((currentPage + 1) / totalPages) * 100);
+        if (progressFill) progressFill.style.width = `${pct}%`;
+        if (progressPercent) progressPercent.textContent = `${pct}%`;
+
+        if (btnPrev) btnPrev.disabled = (currentPage === 0);
+        if (btnNext) btnNext.disabled = (currentPage === totalPages - 1);
+
+        // Subtle 3D page turn reaction
+        if (tome) {
+          tome.style.transition = 'transform 0.16s ease';
+          tome.style.transform = 'scale(0.995)';
+          setTimeout(() => {
+            tome.style.transform = 'scale(1)';
+          }, 160);
+        }
+
+        // Scroll back to top of book if scrolled
+        window.scrollTo({ top: tome.offsetTop - 80, behavior: 'smooth' });
+      }
+
+      if (btnPrev) btnPrev.addEventListener('click', () => goToPage(currentPage - 1));
+      if (btnNext) btnNext.addEventListener('click', () => goToPage(currentPage + 1));
+
+      // Table of Contents
+      if (btnOpenToc && tocDrawer) {
+        btnOpenToc.addEventListener('click', () => tocDrawer.classList.add('open'));
+      }
+      if (btnCloseToc && tocDrawer) {
+        btnCloseToc.addEventListener('click', () => tocDrawer.classList.remove('open'));
+      }
+
+      tocButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = parseInt(btn.getAttribute('data-target-page'), 10);
+          goToPage(target);
+          if (tocDrawer) tocDrawer.classList.remove('open');
+        });
+      });
+
+      // ----------------------------------------------------
+      // ZEN / FOCUS MODE
+      // ----------------------------------------------------
+      function toggleZen() {
+        document.body.classList.toggle('zen-mode');
+      }
+      if (btnZenToggle) btnZenToggle.addEventListener('click', toggleZen);
+      if (btnExitZen) btnExitZen.addEventListener('click', toggleZen);
+
+      // ----------------------------------------------------
+      // THEMES
+      // ----------------------------------------------------
+      const themeButtons = document.querySelectorAll('.btn-theme');
+      themeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const theme = btn.getAttribute('data-theme');
+          document.body.classList.remove('theme-fogueira', 'theme-pergaminho', 'theme-noite', 'theme-luz');
+          if (theme !== 'fogueira') {
+            document.body.classList.add(`theme-${theme}`);
+          }
+          themeButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      // ----------------------------------------------------
+      // FONT SIZE SCALING
+      // ----------------------------------------------------
+      let currentFontSize = 1.08;
+      const btnFontDec = document.getElementById('btnFontDec');
+      const btnFontInc = document.getElementById('btnFontInc');
+
+      if (btnFontInc) {
+        btnFontInc.addEventListener('click', () => {
+          if (currentFontSize < 1.45) {
+            currentFontSize += 0.08;
+            document.documentElement.style.setProperty('--font-reading-size', `${currentFontSize}rem`);
+          }
+        });
+      }
+      if (btnFontDec) {
+        btnFontDec.addEventListener('click', () => {
+          if (currentFontSize > 0.88) {
+            currentFontSize -= 0.08;
+            document.documentElement.style.setProperty('--font-reading-size', `${currentFontSize}rem`);
+          }
+        });
+      }
+
+      // ----------------------------------------------------
+      // SYNTHESIZED PROCEDURAL WEB AUDIO (AMBIENT SOUNDSCAPES)
+      // 100% offline, zero external audio assets required!
+      // ----------------------------------------------------
+      let audioCtx = null;
+      let isAudioPlaying = false;
+      let noiseNode = null;
+      let filterNode = null;
+      let gainNode = null;
+      let crackleInterval = null;
+
+      const btnAudioToggle = document.getElementById('btnAudioToggle');
+      const audioStateText = document.getElementById('audioStateText');
+      const audioPresetSelect = document.getElementById('audioPresetSelect');
+
+      function initAudio() {
+        if (audioCtx) return;
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+
+        // White noise buffer for rain/river/wind
+        const bufferSize = audioCtx.sampleRate * 2;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+
+        noiseNode = audioCtx.createBufferSource();
+        noiseNode.buffer = noiseBuffer;
+        noiseNode.loop = true;
+
+        filterNode = audioCtx.createBiquadFilter();
+        gainNode = audioCtx.createGain();
+        gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
+
+        noiseNode.connect(filterNode);
+        filterNode.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        noiseNode.start();
+
+        updateAudioPreset();
+      }
+
+      function updateAudioPreset() {
+        if (!filterNode || !gainNode || !audioCtx) return;
+        const preset = audioPresetSelect.value;
+        const now = audioCtx.currentTime;
+
+        clearInterval(crackleInterval);
+
+        if (preset === 'rain') {
+          // Soft pink rain & mountain wind
+          filterNode.type = 'lowpass';
+          filterNode.frequency.setTargetAtTime(950, now, 0.2);
+          filterNode.Q.setTargetAtTime(1.2, now, 0.2);
+          gainNode.gain.setTargetAtTime(0.08, now, 0.2);
+        } else if (preset === 'river') {
+          // Deep rushing river rapids
+          filterNode.type = 'bandpass';
+          filterNode.frequency.setTargetAtTime(420, now, 0.2);
+          filterNode.Q.setTargetAtTime(0.8, now, 0.2);
+          gainNode.gain.setTargetAtTime(0.12, now, 0.2);
+        } else if (preset === 'fire') {
+          // Gentle warm rumble + randomized fire crackles
+          filterNode.type = 'lowpass';
+          filterNode.frequency.setTargetAtTime(260, now, 0.2);
+          gainNode.gain.setTargetAtTime(0.06, now, 0.2);
+
+          // Simulated organic ember pops
+          crackleInterval = setInterval(() => {
+            if (!isAudioPlaying || !audioCtx) return;
+            if (Math.random() > 0.45) {
+              const pop = audioCtx.createOscillator();
+              const popGain = audioCtx.createGain();
+              pop.type = 'triangle';
+              pop.frequency.setValueAtTime(300 + Math.random() * 800, audioCtx.currentTime);
+              popGain.gain.setValueAtTime(0.04 * Math.random(), audioCtx.currentTime);
+              popGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.04);
+              pop.connect(popGain);
+              popGain.connect(audioCtx.destination);
+              pop.start();
+              pop.stop(audioCtx.currentTime + 0.05);
+            }
+          }, 350);
+        }
+      }
+
+      function toggleAudio() {
+        if (!audioCtx) initAudio();
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        if (isAudioPlaying) {
+          gainNode.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.15);
+          clearInterval(crackleInterval);
+          isAudioPlaying = false;
+          btnAudioToggle.classList.remove('playing');
+          audioStateText.textContent = 'Mudo';
+        } else {
+          isAudioPlaying = true;
+          updateAudioPreset();
+          btnAudioToggle.classList.add('playing');
+          audioStateText.textContent = 'Ouvindo';
+        }
+      }
+
+      if (btnAudioToggle) btnAudioToggle.addEventListener('click', toggleAudio);
+      if (audioPresetSelect) {
+        audioPresetSelect.addEventListener('change', () => {
+          if (isAudioPlaying) updateAudioPreset();
+        });
+      }
+
+      // ----------------------------------------------------
+      // KEYBOARD SHORTCUTS
+      // ----------------------------------------------------
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+          goToPage(currentPage + 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          goToPage(currentPage - 1);
+        } else if (e.key === 'z' || e.key === 'Z') {
+          toggleZen();
+        } else if (e.key === 'm' || e.key === 'M') {
+          toggleAudio();
+        } else if (e.key === 'Escape') {
+          if (tocDrawer && tocDrawer.classList.contains('open')) {
+            tocDrawer.classList.remove('open');
+          } else if (document.body.classList.contains('zen-mode')) {
+            toggleZen();
+          }
+        }
+      });
+
+      goToPage(0);
+    });
+  </script>
+</body>
+</html>
