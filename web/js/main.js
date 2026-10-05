@@ -778,6 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollSpy();
   initNameSuggest();
   initGitHubLiveSync();
+  initInteractiveBookReader();
 });
 
 // =============================================================================
@@ -1017,3 +1018,84 @@ function initGitHubLiveSync() {
 
   fetchLiveGitHub();
 }
+
+// =============================================================================
+// INTERACTIVE DIGITAL BOOK READER (BOOK ZERO MANUSCRIPT)
+// =============================================================================
+function initInteractiveBookReader() {
+  const pages = document.querySelectorAll('.book-page');
+  const tabs = document.querySelectorAll('.ch-tab');
+  const btnPrev = document.getElementById('btnBookPrev');
+  const btnNext = document.getElementById('btnBookNext');
+  const counter = document.getElementById('bookPageCounter');
+  const tome = document.getElementById('bookTome');
+
+  if (!pages.length) return;
+
+  let currentPage = 0;
+  const totalPages = pages.length;
+
+  function goToPage(index) {
+    if (index < 0 || index >= totalPages) return;
+    currentPage = index;
+
+    pages.forEach((page, i) => {
+      page.classList.toggle('active', i === currentPage);
+    });
+
+    tabs.forEach((tab) => {
+      const pageIndex = parseInt(tab.getAttribute('data-page'), 10);
+      tab.classList.toggle('active', pageIndex === currentPage);
+    });
+
+    if (counter) {
+      counter.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+    }
+
+    if (btnPrev) btnPrev.disabled = (currentPage === 0);
+    if (btnNext) btnNext.disabled = (currentPage === totalPages - 1);
+
+    // Subtle page flip animation
+    if (tome) {
+      tome.style.transition = 'transform 0.15s ease';
+      tome.style.transform = 'scale(0.996)';
+      setTimeout(() => {
+        tome.style.transform = 'scale(1)';
+      }, 150);
+    }
+  }
+
+  // Next / Prev Button events
+  if (btnPrev) {
+    btnPrev.addEventListener('click', () => goToPage(currentPage - 1));
+  }
+  if (btnNext) {
+    btnNext.addEventListener('click', () => goToPage(currentPage + 1));
+  }
+
+  // Chapter Tabs click events
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const pageIndex = parseInt(tab.getAttribute('data-page'), 10);
+      goToPage(pageIndex);
+    });
+  });
+
+  // Keyboard navigation when near the book section
+  window.addEventListener('keydown', (e) => {
+    const livrosSec = document.getElementById('livros');
+    if (!livrosSec) return;
+    const rect = livrosSec.getBoundingClientRect();
+    const isVisible = (rect.top <= window.innerHeight && rect.bottom >= 0);
+    if (isVisible) {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        goToPage(currentPage + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        goToPage(currentPage - 1);
+      }
+    }
+  });
+
+  goToPage(0);
+}
+
