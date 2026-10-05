@@ -9,6 +9,7 @@ Early foundation of a realistic, persistent cooperative world.
   <img src="https://img.shields.io/badge/Ballot-Name%20The%20World-blue?style=flat-square" alt="Name The World">
   <a href="https://discord.gg/qUattYbkxU"><img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=flat-square&logo=discord&logoColor=white" alt="Discord"></a>
   <a href="https://x.com/Bieuulls"><img src="https://img.shields.io/badge/X%2FTwitter-Follow%20%40Bieuulls-000000?style=flat-square&logo=x&logoColor=white" alt="X"></a>
+  <a href="https://www.reddit.com/user/Bieuulls/"><img src="https://img.shields.io/badge/Reddit-u%2FBieuulls-FF4500?style=flat-square&logo=reddit&logoColor=white" alt="Reddit"></a>
 </p>
 
 ![AI-assisted concept art showing the intended world and atmosphere](assets/concept/01-hero-world-overlook.png)
@@ -115,6 +116,7 @@ The community will be invited to follow the project from its beginning, discuss 
 
 • **Official Discord:** [Join the Frontier Community](https://discord.gg/qUattYbkxU)
 • **X / Twitter:** [@Bieuulls](https://x.com/Bieuulls)
+• **Reddit:** [u/Bieuulls](https://www.reddit.com/user/Bieuulls/)
 
 Read [COMMUNITY.md](COMMUNITY.md).
 
