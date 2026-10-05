@@ -3,6 +3,8 @@
 Early foundation of a realistic, persistent cooperative world.
 
 <p align="left">
+  <a href="https://unnamed-world.vercel.app"><img src="https://img.shields.io/badge/Official%20Website-Live%20on%20Vercel-black?style=flat-square&logo=vercel&logoColor=white" alt="Official Website"></a>
+  <a href="https://unnamed-world.vercel.app/livro"><img src="https://img.shields.io/badge/Book%20Zero-Read%20Online-d4af37?style=flat-square" alt="Read Book Zero Online"></a>
   <img src="https://img.shields.io/badge/Engine-Godot%204.x-478cbf?style=flat-square&logo=godotengine&logoColor=white" alt="Godot 4">
   <img src="https://img.shields.io/badge/Status-Phase%200%20Foundation-d4af37?style=flat-square" alt="Phase 0">
   <img src="https://img.shields.io/badge/Governance-Community--Driven-10b981?style=flat-square" alt="Governance">
@@ -11,6 +13,10 @@ Early foundation of a realistic, persistent cooperative world.
   <a href="https://x.com/Bieuulls"><img src="https://img.shields.io/badge/X%2FTwitter-Follow%20%40Bieuulls-000000?style=flat-square&logo=x&logoColor=white" alt="X"></a>
   <a href="https://www.reddit.com/user/Bieuulls/"><img src="https://img.shields.io/badge/Reddit-u%2FBieuulls-FF4500?style=flat-square&logo=reddit&logoColor=white" alt="Reddit"></a>
 </p>
+
+> 🌐 **Official Live Portal:** [https://unnamed-world.vercel.app](https://unnamed-world.vercel.app)  
+> 📖 **Book Zero (Chapter 1 Interactive Tome):** [https://unnamed-world.vercel.app/livro](https://unnamed-world.vercel.app/livro)
+
 
 ![AI-assisted concept art showing the intended world and atmosphere](assets/concept/01-hero-world-overlook.png)
 
