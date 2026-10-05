@@ -1049,7 +1049,8 @@ function initInteractiveBookReader() {
     });
 
     if (counter) {
-      counter.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+      const isPt = (typeof currentLang !== 'undefined' && currentLang === 'pt');
+      counter.textContent = isPt ? `Página ${currentPage + 1} de ${totalPages}` : `Page ${currentPage + 1} of ${totalPages}`;
     }
 
     if (btnPrev) btnPrev.disabled = (currentPage === 0);
