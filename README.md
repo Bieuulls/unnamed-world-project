@@ -7,6 +7,7 @@ Early foundation of a realistic, persistent cooperative world.
   <img src="https://img.shields.io/badge/Status-Phase%200%20Foundation-d4af37?style=flat-square" alt="Phase 0">
   <img src="https://img.shields.io/badge/Governance-Community--Driven-10b981?style=flat-square" alt="Governance">
   <img src="https://img.shields.io/badge/Ballot-Name%20The%20World-blue?style=flat-square" alt="Name The World">
+  <a href="https://discord.gg/qUattYbkxU"><img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=flat-square&logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 ![AI-assisted concept art showing the intended world and atmosphere](assets/concept/01-hero-world-overlook.png)
@@ -110,6 +111,8 @@ Future concepts are not finished features and should not be presented as such.
 ## Community
 
 The community will be invited to follow the project from its beginning, discuss ideas and participate in selected decisions.
+
+• **Official Discord:** [Join the Frontier Community](https://discord.gg/qUattYbkxU)
 
 Read [COMMUNITY.md](COMMUNITY.md).
 
