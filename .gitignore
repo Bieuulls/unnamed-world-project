@@ -9,4 +9,7 @@ Desktop.ini
 *.tmp
 *.bak
 *.log
-
+# Godot 4.x specific ignores
+.godot/
+*.translation
+export_presets.cfg

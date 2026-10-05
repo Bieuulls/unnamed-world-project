@@ -1,0 +1,89 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="2_hud"]
+[ext_resource type="Script" path="res://scripts/world/river_current_area.gd" id="3_river"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_top_color = Color(0.35, 0.55, 0.82, 1)
+sky_horizon_color = Color(0.68, 0.75, 0.82, 1)
+ground_bottom_color = Color(0.18, 0.22, 0.16, 1)
+ground_horizon_color = Color(0.55, 0.6, 0.55, 1)
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.65, 0.72, 0.78, 1)
+fog_density = 0.003
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ground"]
+albedo_color = Color(0.24, 0.32, 0.18, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_water"]
+transparency = 1
+albedo_color = Color(0.12, 0.38, 0.55, 0.75)
+roughness = 0.15
+metallic = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_river"]
+size = Vector3(14, 3, 80)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_stone"]
+albedo_color = Color(0.42, 0.41, 0.39, 1)
+roughness = 0.85
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.353, 0.353, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 0, 20, 0)
+shadow_enabled = true
+
+[node name="PrototypeTerrain" type="Node3D" parent="."]
+
+[node name="GroundWest" type="CSGBox3D" parent="PrototypeTerrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, -0.5, 0)
+use_collision = true
+size = Vector3(36, 1, 80)
+material = SubResource("StandardMaterial3D_ground")
+
+[node name="GroundEast" type="CSGBox3D" parent="PrototypeTerrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -0.5, 0)
+use_collision = true
+size = Vector3(36, 1, 80)
+material = SubResource("StandardMaterial3D_ground")
+
+[node name="RiverBed" type="CSGBox3D" parent="PrototypeTerrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
+use_collision = true
+size = Vector3(14, 3, 80)
+material = SubResource("StandardMaterial3D_stone")
+
+[node name="RiverWaterVisual" type="CSGBox3D" parent="PrototypeTerrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2, 0)
+size = Vector3(14, 1.2, 80)
+material = SubResource("StandardMaterial3D_water")
+
+[node name="RiverCurrentArea" type="Area3D" parent="PrototypeTerrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0, 0)
+collision_mask = 2
+script = ExtResource("3_river")
+flow_direction = Vector3(0, 0, 1)
+current_strength = 6.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PrototypeTerrain/RiverCurrentArea"]
+shape = SubResource("BoxShape3D_river")
+
+[node name="Player" parent="." groups=["player"] instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.5, 0)
+
+[node name="HUD" parent="." instance=ExtResource("2_hud")]
