@@ -2,6 +2,13 @@
 
 Early foundation of a realistic, persistent cooperative world.
 
+<p align="left">
+  <img src="https://img.shields.io/badge/Engine-Godot%204.x-478cbf?style=flat-square&logo=godotengine&logoColor=white" alt="Godot 4">
+  <img src="https://img.shields.io/badge/Status-Phase%200%20Foundation-d4af37?style=flat-square" alt="Phase 0">
+  <img src="https://img.shields.io/badge/Governance-Community--Driven-10b981?style=flat-square" alt="Governance">
+  <img src="https://img.shields.io/badge/Ballot-Name%20The%20World-blue?style=flat-square" alt="Name The World">
+</p>
+
 ![AI-assisted concept art showing the intended world and atmosphere](assets/concept/01-hero-world-overlook.png)
 
 > **CONCEPT ART - AI ASSISTED**  

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNNAMED WORLD — Open-Source Living Universe & Community Project</title>
+  
+  <!-- Meta & SEO -->
+  <meta name="description" content="Initial foundation of a realistic, persistent, cooperative world. Nature is not your enemy; it simply does not care.">
+  <meta property="og:title" content="This World Has No Name Yet — UNNAMED WORLD">
+  <meta property="og:description" content="The world does not exist to serve the player. The world remembers. There is no destiny. There are choices.">
+  <meta property="og:image" content="assets/concept/01-hero-world-overlook.png">
+  
+  <!-- Google Fonts: Cinzel & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       TOP NAVIGATION BAR
+       - Primary Language: ENGLISH (Default)
+       - Direct 1-Click Language Switcher (EN, PT, ES, JA, FR, DE, ZH)
+       - Local Anchor Menus (WORLD, GAME, CLANS, BOOKS, GOVERNANCE, COMMUNITY)
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="nav-container">
+      
+      <!-- Brand Logo / Project Status -->
+      <a href="#hero" class="brand-logo">
+        <div class="brand-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L13.5 6.5L18 8L13.5 9.5L12 14L10.5 9.5L6 8L10.5 6.5L12 2Z"/>
+            <path d="M7 14L8 17L11 18L8 19L7 22L6 19L3 18L6 17L7 14Z" opacity="0.6"/>
+            <path d="M17 14L18 17L21 18L18 19L17 22L16 19L13 18L16 17L17 14Z" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="brand-text-group">
+          <span class="brand-title" data-i18n="brand_title">UNNAMED WORLD</span>
+          <span class="brand-status" data-i18n="brand_status">Pre-Alpha Community World</span>
+        </div>
+      </a>
+
+      <!-- Local Navigation Menu -->
+      <nav>
+        <ul class="nav-menu">
+          <li class="nav-item active"><a href="#mundo" data-i18n="nav_mundo">WORLD</a></li>
+          <li class="nav-item"><a href="#jogo" data-i18n="nav_jogo">GAME</a></li>
+          <li class="nav-item"><a href="#clas" data-i18n="nav_clas">CLANS</a></li>
+          <li class="nav-item"><a href="#livros" data-i18n="nav_livros">BOOKS</a></li>
+          <li class="nav-item"><a href="#governanca" data-i18n="nav_governanca">GOVERNANCE</a></li>
+          <li class="nav-item"><a href="#comunidade" data-i18n="nav_comunidade">COMMUNITY</a></li>
+          <li class="nav-item"><a href="#github-live" data-i18n="nav_github">LIVE SYNC</a></li>
+        </ul>
+      </nav>
+
+      <!-- Right Action Area: Luxury Language Dropdown + CTA -->
+      <div class="nav-actions-group">
+        
+        <!-- Luxury Compact Language Dropdown -->
+        <div class="lang-dropdown-wrapper">
+          <button id="langSelectBtn" class="lang-luxury-btn" type="button" aria-label="Select Language">
+            <span class="lang-globe">🌐</span>
+            <span id="currentLangDisplay">EN</span>
+            <svg class="lang-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          
+          <div id="langSelectMenu" class="lang-luxury-menu">
+            <button type="button" class="lang-item active" data-lang="en">
+              <span class="item-flag">🇺🇸</span>
+              <span class="item-name">English</span>
+              <span class="item-code">EN</span>
+            </button>
+            <button type="button" class="lang-item" data-lang="pt">
+              <span class="item-flag">🇧🇷</span>
+              <span class="item-name">Português</span>
+              <span class="item-code">PT</span>
+            </button>
+            <button type="button" class="lang-item" data-lang="es">
+              <span class="item-flag">🇪🇸</span>
+              <span class="item-name">Español</span>
+              <span class="item-code">ES</span>
+            </button>
+            <button type="button" class="lang-item" data-lang="ja">
+              <span class="item-flag">🇯🇵</span>
+              <span class="item-name">日本語</span>
+              <span class="item-code">JA</span>
+            </button>
+            <button type="button" class="lang-item" data-lang="fr">
+              <span class="item-flag">🇫🇷</span>
+              <span class="item-name">Français</span>
+              <span class="item-code">FR</span>
+            </button>
+            <button type="button" class="lang-item" data-lang="de">
+              <span class="item-flag">🇩🇪</span>
+              <span class="item-name">Deutsch</span>
+              <span class="item-code">DE</span>
+            </button>
+            <button type="button" class="lang-item" data-lang="zh">
+              <span class="item-flag">🇨🇳</span>
+              <span class="item-name">简体中文</span>
+              <span class="item-code">ZH</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Local CTA: Name The World -->
+        <a href="#batizar" class="btn-nav-action">
+          <span data-i18n="btn_name_world">NAME THE WORLD</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       HERO: THIS WORLD HAS NO NAME YET
+       (CLEAN PANORAMIC ARTWORK - BALANCED TITLE & REFINED QUOTE)
+       ======================================================================== -->
+  <section id="hero" class="hero-clean-section">
+    <div class="hero-clean-overlay"></div>
+
+    <div class="hero-clean-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span data-i18n="hero_badge">Cooperative Survival & Living Literature</span>
+      </div>
+
+      <h1 class="hero-main-title" data-i18n="hero_title">This World Has No Name Yet</h1>
+
+      <p class="hero-pillars-quote" data-i18n="hero_quote">
+        “The world does not exist to serve the player. The world remembers.<br>
+        There is no destiny. There are choices.”
+      </p>
+
+      <div class="hero-btn-row">
+        <a href="#mundo" class="btn-gold">
+          <span data-i18n="hero_btn_explore">Explore the Universe</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#batizar" class="btn-outline">
+          <span data-i18n="hero_btn_name">Help Choose the Name</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION: THE WORLD & INDIFFERENT NATURE (#mundo)
+       ======================================================================== -->
+  <section id="mundo" class="showcase-section">
+    <div class="section-head">
+      <div style="font-size: 1.4rem; color: var(--gold-primary); margin-bottom: 8px;">🌲</div>
+      <h2 class="section-cinzel" data-i18n="sec_mundo_title">The World & <span>Indifferent Nature</span></h2>
+      <p class="section-sub" data-i18n="sec_mundo_sub">Nature is not your enemy. It simply does not care.</p>
+    </div>
+
+    <!-- Infographic 1: Nature Does Not Hate You -->
+    <div class="infographic-card">
+      <img src="assets/showcase/13-nature-does-not-hate-you.png" alt="Nature Does Not Hate You — It Simply Does Not Care" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_13_title">Nature Does Not Hate You — It Simply Does Not Care</h3>
+          <p class="infographic-desc" data-i18n="card_13_desc">Danger comes from cold rivers, mountains, harsh weather and human actions. No magic or prophecies.</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_13_tag">Core Philosophy</span>
+      </div>
+    </div>
+
+    <!-- Infographic 2: The World Remembers -->
+    <div class="infographic-card">
+      <img src="assets/showcase/05-world-remembers.png" alt="The World Remembers — Past, Present & Memory" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_05_title">The World Remembers — Past, Present & Memory</h3>
+          <p class="infographic-desc" data-i18n="card_05_desc">Pristine (Untouched) ➔ Changed (Human Impact) ➔ Remembered (Scars & Regeneration).</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_05_tag">Ecological Persistence</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION: THE GAME & THE FIRST PROTOTYPE (#jogo)
+       ======================================================================== -->
+  <section id="jogo" class="showcase-section">
+    <div class="section-head">
+      <div style="font-size: 1.4rem; color: var(--gold-primary); margin-bottom: 8px;">⚔️</div>
+      <h2 class="section-cinzel" data-i18n="sec_jogo_title">The Game & <span>The First Prototype</span></h2>
+      <p class="section-sub" data-i18n="sec_jogo_sub">Prove the core mechanic before building the entire world.</p>
+    </div>
+
+    <!-- Infographic 3: First Prototype -->
+    <div class="infographic-card">
+      <img src="assets/showcase/14-first-prototype.png" alt="First Prototype — 10 Core Mechanics" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_14_title">First Prototype — The Playable Core</h3>
+          <p class="infographic-desc" data-i18n="card_14_desc">Forest, terrain, swift river currents, fauna, tree chopping, gathering, construction and co-op (2 to 5 players).</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_14_tag">Phase 1 Scope</span>
+      </div>
+    </div>
+
+    <!-- Infographic 4: Offline / Online -->
+    <div class="infographic-card">
+      <img src="assets/showcase/12-offline-online.png" alt="Offline & Online Game Modes" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_12_title">Offline & Online — Two Modes, One Shared Reality</h3>
+          <p class="infographic-desc" data-i18n="card_12_desc">Offline: solo survival, persistent save, pure exploration. Online: living communities, trade, and politics.</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_12_tag">Game Architecture</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION: SERVERS AS CLANS & SUCCESSION (#clas)
+       ======================================================================== -->
+  <section id="clas" class="showcase-section">
+    <div class="section-head">
+      <div style="font-size: 1.4rem; color: var(--gold-primary); margin-bottom: 8px;">🏰</div>
+      <h2 class="section-cinzel" data-i18n="sec_clas_title">Servers as <span>Clans & Legacy</span></h2>
+      <p class="section-sub" data-i18n="sec_clas_sub">Communities outlive their founders.</p>
+    </div>
+
+    <!-- Infographic 5: Servers as Clans -->
+    <div class="infographic-card">
+      <img src="assets/showcase/09-servers-as-clans.png" alt="Servers as Clans — Territory, Trade, Diplomacy & Legacy" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_09_title">Servers as Clans — Territory & Diplomacy</h3>
+          <p class="infographic-desc" data-i18n="card_09_desc">Highland Clan, Valley Clan, Forest Clan and River Clan connected through trade routes and lasting alliances.</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_09_tag">Persistent Society</span>
+      </div>
+    </div>
+
+    <!-- Infographic 6: Legacy & Succession -->
+    <div class="infographic-card">
+      <img src="assets/showcase/10-legacy-succession.png" alt="Legacy & Succession — Communities Outlive Their Founders" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_10_title">Legacy & Succession — Eras of the World</h3>
+          <p class="infographic-desc" data-i18n="card_10_desc">Founder (Spring) ➔ Successor (Summer) ➔ Council (Autumn) ➔ Next Generation (Winter).</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_10_tag">Historical Succession</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION: LITERATURE & ANNUAL CHRONICLES (#livros)
+       ======================================================================== -->
+  <section id="livros" class="showcase-section">
+    <div class="section-head">
+      <div style="font-size: 1.4rem; color: var(--gold-primary); margin-bottom: 8px;">📖</div>
+      <h2 class="section-cinzel" data-i18n="sec_livros_title">Literature & <span>Annual Chronicles</span></h2>
+      <p class="section-sub" data-i18n="sec_livros_sub">AI processes authentic world history and produces genuine physical books.</p>
+    </div>
+
+    <!-- Infographic 7: Chronicles & Books -->
+    <div class="infographic-card">
+      <img src="assets/showcase/11-chronicles-books.png" alt="Book Zero, Annual Chronicles and Mini Gems" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_11_title">Chronicles & Books — Physical Editions & Free Online</h3>
+          <p class="infographic-desc" data-i18n="card_11_desc">Book Zero (pre-game origin), Annual Chronicles (server history), and collectible Mini Gems.</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_11_tag">True Transmedia</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION: COMMUNITY GOVERNANCE (#governanca)
+       ======================================================================== -->
+  <section id="governanca" class="showcase-section">
+    <div class="section-head">
+      <div style="font-size: 1.4rem; color: var(--gold-primary); margin-bottom: 8px;">⚖️</div>
+      <h2 class="section-cinzel" data-i18n="sec_gov_title">Governance & <span>Decision Making</span></h2>
+      <p class="section-sub" data-i18n="sec_gov_sub">Community-Shaped, Founder-Owned. The community participates, the founder guards the vision.</p>
+    </div>
+
+    <!-- Infographic 8: Hero Governance -->
+    <div class="infographic-card">
+      <img src="assets/showcase/01-hero-governance.png" alt="Community Governance" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_01_title">Community Governance — Foundational Structure</h3>
+          <p class="infographic-desc" data-i18n="card_01_desc">Proposals ➔ Transparent debates ➔ Final approval protecting the long-term project vision.</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_01_tag">Project Constitution</span>
+      </div>
+    </div>
+
+    <!-- Infographic 9: Decision Cycle -->
+    <div class="infographic-card">
+      <img src="assets/showcase/02-decision-cycle.png" alt="Decision Cycle" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_02_title">Decision Cycle — From Submission to Official Record</h3>
+          <p class="infographic-desc" data-i18n="card_02_desc">1. Open Proposals ➔ 2. Screening ➔ 3. GitHub Voting ➔ 4. Final Validation ➔ 5. Logged in DECISIONS.md.</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_02_tag">Democratic Process</span>
+      </div>
+    </div>
+
+    <!-- Infographic 10: 4 Decision Classes -->
+    <div class="infographic-card">
+      <img src="assets/showcase/03-decision-classes.png" alt="4 Decision Classes" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_03_title">4 Decision Classes — Transparency & Boundaries</h3>
+          <p class="infographic-desc" data-i18n="card_03_desc">Class A (Community Selection) • Class B (Consultation) • Class C (Technical) • Class D (Founder Reserved).</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_03_tag">Division of Powers</span>
+      </div>
+    </div>
+
+    <!-- Infographic 11: Parliament on GitHub -->
+    <div class="infographic-card">
+      <img src="assets/showcase/04-github-parliament.png" alt="An Open Parliament on GitHub" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_04_title">An Open Parliament on GitHub</h3>
+          <p class="infographic-desc" data-i18n="card_04_desc">Issues for proposals, Discussions for community polls and debates, Pull Requests for peer-reviewed code.</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_04_tag">GitHub as a Tool</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION: COMMUNITY, EDUCATION & ECOSYSTEM (#comunidade)
+       ======================================================================== -->
+  <section id="comunidade" class="showcase-section">
+    <div class="section-head">
+      <div style="font-size: 1.4rem; color: var(--gold-primary); margin-bottom: 8px;">🎓</div>
+      <h2 class="section-cinzel" data-i18n="sec_com_title">Community & <span>Education</span></h2>
+      <p class="section-sub" data-i18n="sec_com_sub">Build the world. Build your future.</p>
+    </div>
+
+    <!-- Infographic 12: Education & Portfolio -->
+    <div class="infographic-card">
+      <img src="assets/showcase/06-education-portfolio.png" alt="Build the World, Build Your Future" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_06_title">Education & Portfolio — Real-World Growth</h3>
+          <p class="infographic-desc" data-i18n="card_06_desc">Coding, 3D Art, Game Design, Writing, Sound and Mentorship integrated into real production.</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_06_tag">Talent Development</span>
+      </div>
+    </div>
+
+    <!-- Infographic 13: Contributor Journey -->
+    <div class="infographic-card">
+      <img src="assets/showcase/07-contributor-journey.png" alt="Contributor Journey" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_07_title">Contributor Journey — Learn. Contribute. Grow.</h3>
+          <p class="infographic-desc" data-i18n="card_07_desc">New Contributor ➔ Contributor ➔ Verified Contributor ➔ Specialist ➔ Reviewer ➔ Mentor ➔ Maintainer.</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_07_tag">Open Career Path</span>
+      </div>
+    </div>
+
+    <!-- Infographic 14: Project Ecosystem -->
+    <div class="infographic-card">
+      <img src="assets/showcase/08-project-ecosystem.png" alt="Full Project Ecosystem" class="infographic-img" loading="lazy">
+      <div class="infographic-bar">
+        <div>
+          <h3 class="infographic-title" data-i18n="card_08_title">Project Ecosystem — Global Integrated Network</h3>
+          <p class="infographic-desc" data-i18n="card_08_desc">Connecting the in-game world, GitHub, Godot, Clans, Schools, Universities, Mentors and Books.</p>
+        </div>
+        <span class="infographic-tag" data-i18n="card_08_tag">Systemic Vision</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION: GITHUB LIVE SYNC & REAL-TIME ACTIVITY (#github-live)
+       ======================================================================== -->
+  <section id="github-live" class="section-container">
+    <div class="section-header">
+      <div class="live-pulse-badge">
+        <span class="live-pulse-dot"></span>
+        <span id="githubPulseText">LIVE GITHUB SYNC • REPOSITORY ACTIVE</span>
+      </div>
+      <h2 class="section-cinzel" data-i18n="sec_live_title">Real-Time <span>Repository Pulse</span></h2>
+      <p class="section-sub" data-i18n="sec_live_sub">
+        Every commit, proposal, and architectural decision is transparently tracked and synchronized directly from GitHub.
+      </p>
+    </div>
+
+    <!-- Live Metrics Grid -->
+    <div class="github-metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon">⭐</div>
+        <div class="metric-value" id="ghStarsCount">--</div>
+        <div class="metric-label" data-i18n="gh_stars">GitHub Stars</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">🍴</div>
+        <div class="metric-value" id="ghForksCount">--</div>
+        <div class="metric-label" data-i18n="gh_forks">Forks</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">💬</div>
+        <div class="metric-value" id="ghIssuesCount">--</div>
+        <div class="metric-label" data-i18n="gh_issues">Open Issues & Discussions</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">📦</div>
+        <div class="metric-value" id="ghBranch">main</div>
+        <div class="metric-label" data-i18n="gh_branch">Active Branch</div>
+      </div>
+    </div>
+
+    <!-- Live Commits Feed -->
+    <div class="github-feed-container">
+      <div class="feed-header">
+        <div class="feed-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><line x1="1.05" y1="12" x2="7" y2="12"/><line x1="17.01" y1="12" x2="22.96" y2="12"/></svg>
+          <span data-i18n="gh_feed_title">Latest Commits Direct from GitHub</span>
+        </div>
+        <a href="https://github.com/Bieuulls/unnamed-world-project" target="_blank" rel="noopener" class="feed-repo-link">
+          <span data-i18n="gh_view_repo">View on GitHub</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div id="githubCommitsList" class="commits-list">
+        <div class="commit-loading">
+          <div class="loading-spinner"></div>
+          <span>Connecting to GitHub API in real-time...</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION: NAME THE WORLD (#batizar)
+       ======================================================================== -->
+  <section id="batizar" class="name-section-wrapper">
+    <div style="font-size: 1.5rem; color: var(--gold-primary); margin-bottom: 8px;">🗳️</div>
+    <h2 class="section-cinzel" data-i18n="sec_batizar_title">What Would You <span>Name This World?</span></h2>
+    <p class="section-sub" style="max-width: 680px; margin: 0 auto;" data-i18n="sec_batizar_sub">
+      Under our Governance (Class A • D-005), this world has no permanent name yet. Community suggestions enter the official ballot.
+    </p>
+
+    <div class="name-input-group">
+      <input type="text" id="worldNameInput" class="input-style" placeholder="E.g. Indifferent Earth, The First River Chronicles..." maxlength="60">
+      <button id="btnSubmitName" class="btn-submit-action">
+        <span data-i18n="batizar_btn">Submit to GitHub</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+    <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 14px;" data-i18n="batizar_hint">
+      Submitting will directly register your idea into our GitHub Community Discussions & Ballot.
+    </p>
+  </section>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <ul class="footer-nav">
+      <li><a href="#hero" data-i18n="footer_home">Home</a></li>
+      <li><a href="#mundo" data-i18n="footer_mundo">World</a></li>
+      <li><a href="#jogo" data-i18n="footer_jogo">Game</a></li>
+      <li><a href="#clas" data-i18n="footer_clas">Clans</a></li>
+      <li><a href="#livros" data-i18n="footer_livros">Books</a></li>
+      <li><a href="#governanca" data-i18n="footer_governanca">Governance</a></li>
+      <li><a href="#comunidade" data-i18n="footer_comunidade">Community</a></li>
+      <li><a href="#batizar" data-i18n="footer_batizar">Name World</a></li>
+    </ul>
+    <p class="footer-copy" data-i18n="footer_copy">
+      © 2026 UNNAMED WORLD PROJECT. All rights of creation and governance reserved. Local navigation only.
+    </p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+</body>
+</html>

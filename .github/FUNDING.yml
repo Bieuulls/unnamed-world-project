@@ -1,0 +1,6 @@
+# Official GitHub Funding Configuration
+# This enables the "Sponsor" button on GitHub repository
+
+github: [Bieuulls]
+custom:
+  - https://github.com/Bieuulls/unnamed-world-project/blob/main/INVESTORS_AND_SUPPORTERS.md

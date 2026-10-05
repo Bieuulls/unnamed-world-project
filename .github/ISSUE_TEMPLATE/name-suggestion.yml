@@ -1,0 +1,41 @@
+name: Name The World Suggestion
+description: Propose an official permanent name for the world, the game, and the book series.
+title: "[NAME SUGGESTION]: "
+labels:
+  - name-suggestion
+  - class-a
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🗳️ Help Name This World (Class A Decision • D-005)
+        Thank you for helping shape the identity of this persistent, realistic cooperative world.
+        Before submitting, remember that nature in this world is **indifferent, raw, and unyielding**.
+  - type: input
+    id: proposed-name
+    attributes:
+      label: Proposed Name
+      placeholder: E.g., The Indifferent Earth, River of Ash, Verdurous...
+    validations:
+      required: true
+  - type: textarea
+    id: meaning
+    attributes:
+      label: Meaning & Lore Rationale
+      description: Why does this name fit the world? How does it communicate realism and indifference?
+    validations:
+      required: true
+  - type: input
+    id: pronunciation
+    attributes:
+      label: Pronunciation & Origin
+      description: How is it pronounced? Does it have roots in Latin, Old English, Portuguese, etc.?
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Ethical & Legal Confirmation
+      options:
+        - label: This name is original and does not knowingly infringe on trademarks, existing games, or books.
+          required: true
+        - label: I understand that the top suggestions will be screened by the founder before entering the official ballot.
+          required: true
