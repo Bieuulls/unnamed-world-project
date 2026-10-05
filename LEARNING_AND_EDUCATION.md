@@ -14,7 +14,8 @@ Possible areas include:
 
 - programming and tools;
 - game and level design;
-- 3D modeling, rigging and animation;
+- 3D modeling, rigging, animation and parametric clothing;
+- digital fashion design, textile craft and player-driven economics (see [Tailoring & Fashion Economy](docs/systems/TAILORING_AND_FASHION_ECONOMY.md));
 - materials, environment art and UI/UX;
 - sound, music and audiovisual production;
 - writing, documentation and localization;

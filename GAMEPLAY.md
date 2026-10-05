@@ -26,6 +26,7 @@ Players should be able to:
 - farm
 - gather
 - craft
+- tailor garments & design fashion (see [Tailoring & Fashion Economy](docs/systems/TAILORING_AND_FASHION_ECONOMY.md))
 - trade
 - cooperate
 - travel

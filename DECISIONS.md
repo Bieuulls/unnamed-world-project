@@ -41,6 +41,12 @@ This file records major project decisions so that important choices are not sile
 **Scope:** Identity  
 **Decision pending:** The first planned major community selection will help choose the final project name. See [NAME_THE_WORLD.md](NAME_THE_WORLD.md).
 
+## D-006 — In-Game Parametric 3D Tailoring, Fashion Economy & Creator Provenance
+
+**Status:** APPROVED  
+**Scope:** Gameplay / In-Game Economy / Creator Legacy  
+**Decision:** The project introduces an in-game parametric 3D clothing editor (modular components, materials, safe rigs) and a validated external professional pipeline. Garments carry permanent immutable creator provenance (Author, Era, Origin Clan, Edition). Garments govern social prestige, identity, and regional trade, without pay-to-win combat stat inflation. Physical environmental insulation derives strictly from harvested material properties. Full specification: [docs/systems/TAILORING_AND_FASHION_ECONOMY.md](docs/systems/TAILORING_AND_FASHION_ECONOMY.md).
+
 ## Adding a Decision
 
 Every major record should include:
