@@ -725,6 +725,11 @@ function applyTranslations(lang) {
   if (nameInput && dict.batizar_placeholder) {
     nameInput.placeholder = dict.batizar_placeholder;
   }
+
+  // 5. Update book reader language if initialized
+  if (typeof window.updateBookReaderLanguage === 'function') {
+    window.updateBookReaderLanguage(lang === 'pt' ? 'pt' : 'en');
+  }
 }
 
 // Initialize on DOM ready
@@ -1023,24 +1028,473 @@ function initGitHubLiveSync() {
 // INTERACTIVE DIGITAL BOOK READER (BOOK ZERO MANUSCRIPT)
 // =============================================================================
 function initInteractiveBookReader() {
-  const pages = document.querySelectorAll('.book-page');
+  const pagesContainer = document.getElementById('bookPagesWrapper');
   const tabs = document.querySelectorAll('.ch-tab');
   const btnPrev = document.getElementById('btnBookPrev');
   const btnNext = document.getElementById('btnBookNext');
   const counter = document.getElementById('bookPageCounter');
   const tome = document.getElementById('bookTome');
+  const btnLangPt = document.getElementById('btnBookLangPt');
+  const btnLangEn = document.getElementById('btnBookLangEn');
 
-  if (!pages.length) return;
+  if (!pagesContainer) return;
+
+  const embeddedBookContent = {
+    pt: {
+      btnPrev: 'Página Anterior',
+      btnNext: 'Próxima Página',
+      counter: 'Página {cur} de {tot}',
+      tabs: ['Capa', 'I. A Lama', 'II. O Som do Rio', 'III. O Reconhecimento', 'IV. A Travessia', 'V. O Resgate de Noah', 'VI. A Tromba d\'Água', 'VII. O Silêncio'],
+      pages: [
+        `
+        <div class="page-inner page-cover">
+          <div class="cover-ornament top">✧ ✦ ✧</div>
+          <div class="cover-eyebrow">CRÔNICAS DO MUNDO SEM NOME</div>
+          <h2 class="cover-main-title">LIVRO ZERO</h2>
+          <div class="cover-subtitle">Capítulo 1 — O Rio</div>
+          <div class="cover-divider"></div>
+          <p class="cover-quote">
+            “O mundo não existe para servir ao homem.<br>
+            O mundo se lembra.<br>
+            Não há destino. Há escolhas.”
+          </p>
+          <div class="cover-footer">
+            <div class="cover-author">Obra Literária Original Autoral do Fundador & Diretor Criativo</div>
+            <div class="cover-era">Edição Original em Língua Portuguesa • 2026</div>
+          </div>
+          <div class="cover-ornament bottom">✧ ✦ ✧</div>
+        </div>
+        `,
+        `
+        <div class="page-inner">
+          <div class="page-header-strip"><span>CAPÍTULO 1</span><span>PARTE I: A ESTRADA DE PINHEIROS</span></div>
+          <h3 class="page-chapter-title">A Roda e a Lama</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">A roda da carroça afundou outra vez. Tomás ouviu o estalo da madeira antes mesmo de sentir o veículo inclinar.</p>
+            <p>— Para! Para!</p>
+            <p>Puxou as rédeas com força. O cavalo já tinha parado por conta própria. Estava cansado demais para discutir com qualquer homem. Tomás desceu e afundou a bota na lama até quase o tornozelo.</p>
+            <p>— Ótimo.</p>
+            <p>Helena abriu a lona atrás dele.</p>
+            <p>— Quebrou?<br>— Ainda não.<br>— Isso quer dizer que vai quebrar?</p>
+            <p>Ele olhou para a roda.</p>
+            <p>— Quer dizer que ainda não quebrou.</p>
+            <p>Ela fez uma cara que dizia que aquela resposta não ajudava em nada. Daniel apareceu atrás da mãe.</p>
+            <p>— Posso descer?<br>— Não.<br>— Pai?<br>— Sua mãe já respondeu.<br>— Mas eu posso ajudar.</p>
+            <p>Tomás se abaixou junto à roda.</p>
+            <p>— Então fica aí em cima e não faz a Clara acordar.</p>
+            <p>Daniel bufou alguma coisa que ninguém entendeu. Tomás enfiou as duas mãos debaixo da madeira e tentou levantar a carroça. Nada. A lama sugava a roda. Ele tentou de novo. Dessa vez ouviu passos atrás de si.</p>
+            <p>— Você está ficando velho.</p>
+            <p>Tomás nem precisou olhar.</p>
+            <p>— E você continua falando demais.</p>
+            <p>Elias largou uma mochila na beira da estrada e se aproximou.</p>
+            <p>— Se eu não falasse, você passaria o dia inteiro ouvindo só sua própria reclamação.<br>— Eu estava muito bem sozinho.<br>— Estava, sim. Dá para ver.</p>
+            <p>Elias se abaixou ao lado dele. Os dois empurraram. A roda saiu da lama com um som grosso, quase como alguma coisa sendo arrancada do chão. O cavalo deu dois passos. Tomás cambaleou para frente. Elias começou a rir.</p>
+            <p>— Continua rindo.<br>— Vou.<br>— Quando for sua carroça, eu fico olhando.<br>— A minha está ali atrás. Com três sacos a mais porque você resolveu que precisava trazer metade da oficina.</p>
+            <p>Tomás limpou as mãos na calça.</p>
+            <p>— Ferramenta não nasce em árvore.<br>— Ainda.<br>— O quê?<br>— Nada.</p>
+          </div>
+          <div class="page-number-footer">Página 1</div>
+        </div>
+        `,
+        `
+        <div class="page-inner">
+          <div class="page-header-strip"><span>CAPÍTULO 1</span><span>PARTE II: O RUIDO NAS ÁRVORES</span></div>
+          <h3 class="page-chapter-title">O Som Chegou Antes da Água</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">Elias pegou a mochila. Tinha pouco mais de quarenta anos, barba curta já começando a clarear no queixo e aquele jeito de andar como se nunca estivesse realmente com pressa, mesmo quando todos os outros estavam.</p>
+            <p>A esposa dele, Marta, vinha algumas carroças atrás com os dois filhos. Samuel, o mais velho, tinha praticamente a mesma idade de Daniel. Os dois brigavam por qualquer coisa e cinco minutos depois estavam juntos de novo. A menina, Ruth, tinha seis anos e seguia Elias para todo lado quando ele deixava.</p>
+            <p>— Tem alguma coisa na frente — disse Elias.</p>
+            <p>Tomás olhou estrada acima. A fila tinha parado. Não era incomum. Nos últimos dias, qualquer árvore caída, roda quebrada ou animal manco era suficiente para prender vinte carroças no mesmo lugar.</p>
+            <p>— Quanto falta?<br>— Para?<br>— Para seja lá o que está segurando todo mundo.</p>
+            <p>Elias apontou para a mata.</p>
+            <p>— Uns trezentos metros.</p>
+            <p>Tomás olhou para o céu. A chuva tinha diminuído, mas não parado. Já não lembrava da última vez que tinha colocado uma roupa seca.</p>
+            <p>— Vamos ver.</p>
+            <p>Helena ouviu.</p>
+            <p>— Tomás.<br>— O quê?<br>— Não demora.<br>— Não vou.</p>
+            <p>Ela olhou para Elias.</p>
+            <p>— E não deixa ele fazer besteira.</p>
+            <p>Elias abriu os braços.</p>
+            <p>— Por que sempre eu?<br>— Porque ele escuta você.</p>
+            <p>Tomás riu.</p>
+            <p>— Isso é mentira.<br>— Eu sei.</p>
+            <p>Helena fechou a lona. Elias ficou olhando.</p>
+            <p>— Sua mulher gosta mais de mim.<br>— Continua falando.</p>
+            <p>Seguiram a pé. A chuva tinha deixado a estrada quase irreconhecível. O caminho entre os pinheiros virara um corredor de lama, pedras soltas e marcas profundas de rodas. Quando chegaram perto das primeiras carroças, viram gente descendo. Homens se juntavam mais adiante. Ninguém gritava. Isso preocupou Tomás mais do que se estivessem gritando.</p>
+            <p>— O que houve? — perguntou a um rapaz que vinha na direção deles.</p>
+            <p>O rapaz passou a mão pelo cabelo molhado.</p>
+            <p>— Rio.<br>— E?<br>— Vai olhar.</p>
+          </div>
+          <div class="page-number-footer">Página 2</div>
+        </div>
+        `,
+        `
+        <div class="page-inner">
+          <div class="page-header-strip"><span>CAPÍTULO 1</span><span>PARTE III: A LINHA DO MAPA</span></div>
+          <h3 class="page-chapter-title">A Linha do Mapa</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">Tomás e Elias continuaram. O som apareceu antes da água. Um barulho grave, contínuo, escondido atrás das árvores. Elias diminuiu o passo. Tomás percebeu.</p>
+            <p>— Já está com medo?<br>— De água que faz esse barulho? Estou.<br>— Você nada.<br>— É exatamente por isso.</p>
+            <p>Saíram da mata. O rio ocupava quase todo o vale estreito diante deles. Nos mapas, era apenas uma linha. Ali, parecia outra coisa.</p>
+            <p>A água vinha rápida, escura, inchada pelas chuvas nas montanhas. Batia em pedras enormes, quebrava em espuma, passava por cima de troncos que tinham sido arrancados de algum lugar rio acima. Do outro lado, a floresta subia pela encosta. Nada ali parecia impossível. Mas também nada parecia fácil.</p>
+            <p>Silas estava junto da margem com outros homens. Tomás se aproximou.</p>
+            <p>— É aqui?</p>
+            <p>Silas assentiu. Era um homem grande, mais largo que alto, com mãos que pareciam feitas para segurar madeira.</p>
+            <p>— O caminho continua do outro lado.<br>— Quem decidiu isso?<br>— O mapa.<br>— Então o mapa pode atravessar primeiro.</p>
+            <p>Elias deu uma risada curta. Silas não.</p>
+            <p>— Encontramos um trecho mais raso uns duzentos metros acima.<br>— Quanto?<br>Silas levantou a mão na altura da cintura.<br>— Sua cintura ou a minha?<br>— Mais ou menos.<br>— Isso não é profundidade.<br>— Eu sei.</p>
+            <p>Elias deixou a mochila no chão.</p>
+            <p>— Vou ver.</p>
+            <p>Tomás segurou o braço dele.</p>
+            <p>— Não vai sozinho.<br>— Não vou atravessar. Só olhar.<br>— Você acabou de dizer que estava com medo.<br>— Estou. Por isso vou olhar.</p>
+            <p>Silas apontou para dois homens: “Levem corda.” Foram os quatro. Tomás ficou. Observou Elias caminhar pela margem até desaparecer atrás das árvores. Só então percebeu Daniel vindo na direção dele.</p>
+            <p>— Eu mandei você ficar na carroça.<br>— A mãe deixou.</p>
+            <p>Helena levantou a mão de longe, como se confirmasse.</p>
+            <p>— Fica longe da água.<br>— Eu sei.<br>— Daniel.<br>— O quê?<br>— Você fala demais quando está nervoso.<br>— Eu não estou nervoso.<br>— Está bom.</p>
+          </div>
+          <div class="page-number-footer">Página 3</div>
+        </div>
+        `,
+        `
+        <div class="page-inner">
+          <div class="page-header-strip"><span>CAPÍTULO 1</span><span>PARTE IV: DE MARGEM A MARGEM</span></div>
+          <h3 class="page-chapter-title">A Corda Esticada</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">Elias voltou quase meia hora depois. Estava molhado até a cintura.</p>
+            <p>— Entrou?<br>— Um pouco.<br>— Você disse que só ia olhar.<br>— Olhei de dentro.</p>
+            <p>Silas se aproximou. Elias pegou a corda das mãos de um dos homens.</p>
+            <p>— Dá para atravessar gente. Carroça, não desse jeito. Tem uma faixa de pedras mais acima. A corrente é forte, mas o fundo é melhor. Vamos amarrar uma corda de margem a margem. Crianças e mulheres primeiro. Pouca carga.</p>
+            <p>Jonas, um homem mais velho, balançou a cabeça: “Estamos há semanas andando. Não podemos perder tudo agora.”</p>
+            <p>— Então não vamos correr — respondeu Elias com calma. — Vamos fazer direito.</p>
+            <p>A primeira travessia foi dele. Tirou o casaco, amarrou a corda na cintura e entrou. A água chegou aos joelhos, depois às coxas. Na metade do rio, bateu acima da cintura. Ele parou, firmou o pé, esperou. Não caminhava reto: ia de lado, cedendo um pouco para a corrente e depois recuperando.</p>
+            <blockquote class="manuscript-quote">“Se tentar brigar com a água, perde.”</blockquote>
+            <p>Do outro lado, Elias alcançou uma pedra maior, subiu e amarrou a corda firme em uma árvore antiga. Silas prendeu a outra ponta. Puxaram até a linha esticar tensa sobre a correnteza.</p>
+            <p>— Funciona — disse Elias ao retornar segurando nela. Tomás entregou o casaco. “É seguro?” Elias vestiu o casaco molhado: “Não. Mas dá para atravessar.”</p>
+            <p>As primeiras famílias passaram devagar, uma pessoa de cada vez. Helena atravessou com Clara nos braços. Tomás segurou Daniel. A água estava congelante. No trecho mais fundo, Daniel perdeu o apoio por um instante, mas Tomás segurou firme em sua gola. Chegaram ao outro lado em segurança.</p>
+            <p>Helena ajeitou o casaco do marido: “Só não inventa coragem onde não precisa.” Tomás sorriu: “Faz todo dia.” Ele beijou a testa dela e voltou para a água.</p>
+          </div>
+          <div class="page-number-footer">Página 4</div>
+        </div>
+        `,
+        `
+        <div class="page-inner">
+          <div class="page-header-strip"><span>CAPÍTULO 1</span><span>PARTE V: O MENINO NA CORRENTEZA</span></div>
+          <h3 class="page-chapter-title">O Mergulho de Elias</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">No começo da tarde, tinham passado mais da metade das famílias. Foi quando o cavalo escorregou. Uma carroça pequena atravessava quase vazia; o animal pisou em falso e a madeira virou. Dois homens correram. Um deles soltou a corda principal por meros segundos. Foi o suficiente.</p>
+            <p>A mãe de Noah atravessava logo atrás. O menino de oito anos perdeu o equilíbrio. A correnteza impiedosa levou as pernas dele. A mãe segurou a manga por um instante e perdeu.</p>
+            <p>— Noah! — gritou Silas, paralisado de pavor.</p>
+            <p>Elias já estava correndo. Jogou o casaco no chão. Tomás gritou: “Espera a corda!” Elias nem olhou. Correu pela margem para ganhar distância e se jogou de lado, deixando a corrente levá-lo com velocidade assustadora.</p>
+            <p>Noah submergiu. Elias mergulhou. Por longos segundos de agonia, ninguém viu nenhum dos dois na água turva.</p>
+            <p>Então Elias emergiu, com o braço firme em volta do peito de Noah. A água os arrastava em direção às pedras pontiagudas. Elias conseguiu agarrar as raízes grossas de uma árvore curva na margem.</p>
+            <p>— CORDA! — rugiu ele, escorregando.</p>
+            <p>Tomás correu e arremessou a linha com precisão. Elias prendeu o braço. Puxaram primeiro o menino, depois o homem exausto. Noah caiu na lama, imóvel. A mãe se jogou ao lado dele em prantos.</p>
+            <p>Elias se arrastou de joelhos, virou a criança e pressionou as costas com força. Noah tossiu água. Uma vez, duas. Respirou. Silas caiu de joelhos e abraçou o ombro de Elias sem conseguir articular palavras.</p>
+            <p>Tomás aproximou-se do amigo ensopado e trêmulo: “Você é um idiota. Podia ter ido junto.” Elias passou a mão no rosto: “Podia... Mas prova que eu ainda sei nadar.”</p>
+          </div>
+          <div class="page-number-footer">Página 5</div>
+        </div>
+        `,
+        `
+        <div class="page-inner">
+          <div class="page-header-strip"><span>CAPÍTULO 1</span><span>PARTE VI: A ENXURRADA DAS MONTANHAS</span></div>
+          <h3 class="page-chapter-title">A Fúria das Águas</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">A chuva engrossou com violência. A água já cobria as pedras de apoio. Marta, Ruth e Samuel atravessaram com segurança. Elias recusou-se a ir: “Cinco minutos. Ainda tem gente deste lado.”</p>
+            <p>A penúltima carroça entrou no leito com ferramentas e dois barris. De repente, um estalo ecoou do vale alto. Parecia uma floresta inteira despencando. Elias olhou para cima do rio. Seu rosto mudou.</p>
+            <p>— Saiam da água. SAIAM DA ÁGUA!</p>
+            <p>A enxurrada desceu com violência incalculável. Uma muralha escura de água trouxe troncos, folhas e pedregulhos. A carroça tombou num giro violento; um barril atingiu um homem, que afundou. Elias saltou até ele e o impulsionou contra uma pedra segura: “Segura!”</p>
+            <p>Foi quando o tronco colossal veio. Arrancado pela raiz, desceu girando como aríete. Não atingiu Elias em cheio, mas a onda de choque o arremessou no vazio. Ele perdeu o chão e agarrou a corda esticada com as duas mãos.</p>
+            <p>Tomás correu em desespero pela margem, puxando com outros homens: “SEGURA! NÃO SOLTA!”</p>
+            <p>A correnteza brutal arrancava o corpo de Elias para baixo. A água espumava sobre seu rosto. Uma mão escorregou da fibra molhada. Ele tentou agarrar de novo, mas a segunda mão cedeu. A corrente o engoliu.</p>
+            <p>Tomás largou a ponta e correu pela encosta aos berros: “ELIAS!”</p>
+            <p>Elias foi jogado contra uma rocha, submergiu e reapareceu trezentos metros abaixo, lutando para manter os olhos abertos. Conseguiu se segurar momentaneamente em uma pedra. Tomás arremessou a corda com toda a força que restava nos braços. Caiu curta.</p>
+            <blockquote class="manuscript-quote">“Elias olhou para ele. Tomás nunca esqueceu aquele olhar. Não havia heroísmo nele. Nem calma. Era medo.”</blockquote>
+            <p>A água varreu a pedra. Elias foi levado para sempre nas curvas escuras do vale.</p>
+          </div>
+          <div class="page-number-footer">Página 6</div>
+        </div>
+        `,
+        `
+        <div class="page-inner page-epilogue">
+          <div class="page-header-strip"><span>CAPÍTULO 1</span><span>PARTE VII: A MARGEM OPOSTA</span></div>
+          <h3 class="page-chapter-title">O Silêncio da Noite</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">Tomás correu pela margem até a vegetação fechar o desfiladeiro. Gritou até a voz se transformar em um sussurro rasgado na garganta. Silas o alcançou na penumbra da floresta.</p>
+            <p>— Tomás... Está escuro. A água está subindo.<br>— Ele sabe nadar! Você viu o Noah. Ele sabe nadar!<br>Silas apenas baixou os olhos.</p>
+            <p>Procuraram até as sombras engolirem qualquer vestígio. Não acharam Elias. Nem o casaco, nem uma bota, nem sangue. Apenas o som infinito da torrente.</p>
+            <p>Quando Tomás retornou ao acampamento, fogueiras débeis ardiam contra o vento frio da noite. Marta estava em pé, imóvel. Ruth dormia sob a manta de Helena. Samuel vigiava as chamas. Marta encarou Tomás:</p>
+            <p>— Onde você viu ele por último?<br>— Talvez trezentos metros abaixo. Talvez mais.<br>Ela assentiu com uma firmeza dolorosa:<br>— Amanhã a gente procura.</p>
+            <p>Helena limpou em silêncio o corte sangrento no braço de Tomás. Daniel permaneceu estático diante do fogo, encarando o rio escuro, talvez esperando que Elias surgisse entre os pinheiros, molhado e reclamando do frio.</p>
+            <p>Nas sombras, a voz pequena de Samuel quebrou o silêncio:</p>
+            <p>— O pai sabia onde a gente estava?<br>— Sabia — respondeu Marta.<br>— Então ele volta?<br>Ela cobriu o menino com a manta gasta.<br>— Dorme, Samuel. Dorme.</p>
+            <blockquote class="manuscript-quote" style="border-left: 3px solid #8c251d; font-weight: 600; margin-top: 24px; color: #1f180e;">
+              Ninguém dormiu direito naquela noite.<br>O rio não ficou mais baixo.<br>E Elias não voltou.
+            </blockquote>
+          </div>
+          <div class="page-number-footer">Página 7</div>
+        </div>
+        `
+      ]
+    },
+
+    en: {
+      btnPrev: 'Previous Page',
+      btnNext: 'Next Page',
+      counter: 'Page {cur} of {tot}',
+      tabs: ['Cover', 'I. The Mud', 'II. River Sound', 'III. The Map Line', 'IV. The Crossing', 'V. Noah\'s Rescue', 'VI. Flash Flood', 'VII. The Silence'],
+      pages: [
+        `
+        <div class="page-inner page-cover">
+          <div class="cover-ornament top">✧ ✦ ✧</div>
+          <div class="cover-eyebrow">CHRONICLES OF THE UNNAMED WORLD</div>
+          <h2 class="cover-main-title">BOOK ZERO</h2>
+          <div class="cover-subtitle">Chapter 1 — The River</div>
+          <div class="cover-divider"></div>
+          <p class="cover-quote">
+            “The world does not exist to serve the player.<br>
+            The world remembers what people do.<br>
+            There is no destiny. There are choices.”
+          </p>
+          <div class="cover-footer">
+            <div class="cover-author">Original Literary Work Authored by the Founder & Creative Director</div>
+            <div class="cover-era">First Official International Edition • 2026</div>
+          </div>
+          <div class="cover-ornament bottom">✧ ✦ ✧</div>
+        </div>
+        `,
+        `
+        <div class="page-inner">
+          <div class="page-header-strip"><span>CHAPTER 1</span><span>PART I: THE PINE ROAD</span></div>
+          <h3 class="page-chapter-title">The Wheel and the Mud</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">The cart wheel sank once again. Tomás heard the crack of timber even before feeling the vehicle tilt.</p>
+            <p>— Stop! Stop!</p>
+            <p>He hauled on the reins with force. The horse had already stopped on its own accord. It was too exhausted to argue with any man. Tomás stepped down and buried his boot in the mud almost to his ankle.</p>
+            <p>— Perfect.</p>
+            <p>Helena pushed back the canvas behind him.</p>
+            <p>— Did it break?<br>— Not yet.<br>— Does that mean it will break?</p>
+            <p>He looked at the wheel.</p>
+            <p>— It means it hasn't broken yet.</p>
+            <p>She made a face that made it clear the answer was no help at all. Daniel appeared behind his mother.</p>
+            <p>— Can I get down?<br>— No.<br>— Father?<br>— Your mother already answered.<br>— But I can help.</p>
+            <p>Tomás crouched beside the wheel.</p>
+            <p>— Then stay up there and don't wake Clara up.</p>
+            <p>Daniel grunted something nobody understood. Tomás wedged both hands beneath the timber and tried to heave the cart up. Nothing. The mud sucked at the wheel. He tried again. This time he heard footsteps behind him.</p>
+            <p>— You're getting old.</p>
+            <p>Tomás didn't even need to look.</p>
+            <p>— And you never stop talking.</p>
+            <p>Elias set his pack down by the roadside and walked over.</p>
+            <p>— If I didn't talk, you'd spend the whole day listening to your own grumbling.<br>— I was doing just fine on my own.<br>— Right, sure. Anyone can see that.</p>
+            <p>Elias crouched beside him. The two men pushed together. The wheel ripped free of the mud with a wet, heavy suction, like something being torn straight from the earth. The horse took two steps forward. Tomás stumbled ahead. Elias started laughing.</p>
+            <p>— Keep laughing.<br>— Oh, I will.<br>— When it's your cart, I'll just stand by and watch.<br>— Mine is back there. With three extra sacks because you decided we had to haul half your forge along.</p>
+            <p>Tomás wiped his hands on his trousers.</p>
+            <p>— Tools don't grow on trees.<br>— Not yet.<br>— What?<br>— Nothing.</p>
+          </div>
+          <div class="page-number-footer">Page 1</div>
+        </div>
+        `,
+        `
+        <div class="page-inner">
+          <div class="page-header-strip"><span>CHAPTER 1</span><span>PART II: THE ROAR IN THE TIMBER</span></div>
+          <h3 class="page-chapter-title">The Sound Came Before the Water</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">Elias picked up his pack. He was just past forty, his short beard already flecked with white along the jaw, and had that steady stride of a man who never looked truly in a hurry, even when everyone else was.</p>
+            <p>His wife, Marta, was traveling several wagons behind with their two children. Samuel, the eldest, was practically Daniel's age. The two boys would fight over anything and be inseparable five minutes later. The little girl, Ruth, was six years old and trailed Elias everywhere he allowed.</p>
+            <p>— Something's holding them up ahead, — Elias said.</p>
+            <p>Tomás looked up the trail. The line had stalled. It wasn't unusual. Over the past few days, any fallen pine, snapped axle, or limping pack horse was enough to pin twenty wagons in place.</p>
+            <p>— How far?<br>— To what?<br>— To whatever's holding everyone back.</p>
+            <p>Elias pointed toward the woods.</p>
+            <p>— Maybe three hundred paces.</p>
+            <p>Tomás glanced at the gray sky. The drizzle had eased, but hadn't stopped. He couldn't remember the last time he had put on dry wool.</p>
+            <p>— Let's see.</p>
+            <p>Helena caught the words.</p>
+            <p>— Tomás.<br>— What?<br>— Don't take long.<br>— I won't.</p>
+            <p>She looked at Elias.</p>
+            <p>— And don't let him do anything reckless.</p>
+            <p>Elias spread his hands.</p>
+            <p>— Why is it always me?<br>— Because he listens to you.</p>
+            <p>Tomás chuckled.</p>
+            <p>— That's a lie.<br>— I know.</p>
+            <p>Helena drew the canvas shut. Elias watched her.</p>
+            <p>— Your wife likes me better.<br>— Keep talking.</p>
+            <p>They walked on foot. The rain had turned the trail unrecognizable—a narrow corridor between the pines carved with gray mud, loose scree, and deep wagon ruts. Near the head of the convoy, people were climbing down. Men gathered further ahead. No one was shouting. That troubled Tomás more than shouting would have.</p>
+            <p>— What happened? — he asked a lad heading toward them.</p>
+            <p>The boy ran a wet hand through his hair.</p>
+            <p>— River.<br>— And?<br>— Go look.</p>
+          </div>
+          <div class="page-number-footer">Page 2</div>
+        </div>
+        `,
+        `
+        <div class="page-inner">
+          <div class="page-header-strip"><span>CHAPTER 1</span><span>PART III: THE LINE ON THE MAP</span></div>
+          <h3 class="page-chapter-title">The Line on the Map</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">Tomás and Elias pressed on. The sound reached them before the water did. A low, continuous roar buried behind the trees. Elias slowed his pace. Tomás noticed.</p>
+            <p>— Scared already?<br>— Of water that makes that kind of noise? Yes.<br>— You swim.<br>— That's exactly why.</p>
+            <p>They emerged from the timber. The river swallowed nearly the entire narrow valley before them. On the maps, it was merely an ink line. Here, it was something else entirely.</p>
+            <p>The water tore through—dark, heavy, swollen with snowmelt and rain from the mountain crags. It struck against massive boulders, foaming white, surging over fallen trunks that had been ripped from their roots upriver. On the far side, the pine forest rose up the steep slope. Nothing looked impossible. But nothing looked easy either.</p>
+            <p>Silas stood by the bank with the other men. Tomás approached.</p>
+            <p>— This is it?</p>
+            <p>Silas nodded. He was a broad man, wider than he was tall, with hands that looked made to grip timber.</p>
+            <p>— The trail picks up on the other side.<br>— Who decided that?<br>— The map.<br>— Then the map can swim across first.</p>
+            <p>Elias let out a short laugh. Silas didn't.</p>
+            <p>— We found a shallower stretch about two hundred meters up.<br>— How shallow?<br>Silas held his hand at waist height.<br>— Your waist or mine?<br>— Somewhere about there.<br>— That's not a depth.<br>— I know.</p>
+            <p>Elias set his pack on the ground.</p>
+            <p>— I'll go see.</p>
+            <p>Tomás grabbed his arm.</p>
+            <p>— Don't go alone.<br>— I'm not crossing. Just looking.<br>— You just said you were afraid.<br>— I am. That's why I'm going to look.</p>
+            <p>Silas signaled two men: “Take ropes.” The four set off. Tomás stayed behind. He watched Elias skirt the bank until disappearing into the mist and trees. Only then did he spot Daniel walking toward him.</p>
+            <p>— I told you to stay with the wagon.<br>— Mother said I could come.</p>
+            <p>Helena raised a distant hand from the cart, confirming it.</p>
+            <p>— Stay clear of the water.<br>— I know.<br>— Daniel.<br>— What?<br>— You talk too much when you're nervous.<br>— I'm not nervous.<br>— All right.</p>
+          </div>
+          <div class="page-number-footer">Page 3</div>
+        </div>
+        `,
+        `
+        <div class="page-inner">
+          <div class="page-header-strip"><span>CHAPTER 1</span><span>PART IV: FROM BANK TO BANK</span></div>
+          <h3 class="page-chapter-title">The Taut Rope</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">Elias returned nearly half an hour later, soaked to his hips.</p>
+            <p>— You went in?<br>— A little.<br>— You said you were only going to look.<br>— I looked from the inside.</p>
+            <p>Silas stepped up. Elias took the coiled rope from one of the men.</p>
+            <p>— People can cross. Wagons, not like this. There's a ledge of stone further up. The current is violent, but the footing holds. We string a guide rope from bank to bank. Women and children first. Light baggage.</p>
+            <p>Jonas, an older pioneer, shook his head: “We've been walking for weeks. We can't lose everything now.”</p>
+            <p>— Then we don't rush, — Elias answered calmly. — We do it right.</p>
+            <p>He made the first crossing himself. Stripping off his coat, he knotted the hemp rope around his waist and stepped in. The water struck his knees, then his thighs. Halfway across, it surged past his waist. He halted. Dug his boots in. Waited. Only then did he take another step. He didn't walk straight; he moved angled sideways, yielding slightly to the current and then recovering his balance.</p>
+            <blockquote class="manuscript-quote">“Because if you fight the river directly, you lose.”</blockquote>
+            <p>On the opposite shore, Elias pulled himself onto a large shelf of rock, untied the rope, and lashed it fast around a stout ancient birch. Silas anchored the near end around a spruce trunk. Men hauled until the line stretched taut and vibrating over the white rapids.</p>
+            <p>— It holds, — Elias called as he came back hand-over-hand along the line. Tomás handed him his coat. “Is it safe?” Elias pulled the wet wool over his shoulders: “No. But it can be crossed.”</p>
+            <p>The first families stepped into the current slowly, one soul at a time. Helena crossed with Clara clutched to her chest. Tomás held Daniel by the arm. The water was glacial. In the deepest trough, Daniel lost his footing for a sickening second, but Tomás clenched his fist into the boy's collar. They reached the far bank safely.</p>
+            <p>Helena straightened her husband's collar: “Just don't go inventing courage where you don't need it.” Tomás smiled: “I do that every day.” He kissed her forehead and turned back to the river.</p>
+          </div>
+          <div class="page-number-footer">Page 4</div>
+        </div>
+        `,
+        `
+        <div class="page-inner">
+          <div class="page-header-strip"><span>CHAPTER 1</span><span>PART V: THE BOY IN THE TORRENT</span></div>
+          <h3 class="page-chapter-title">Elias's Dive</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">By early afternoon, more than half the families had reached the other side. That was when the pack horse slipped. A light two-wheeled cart was crossing nearly empty; the beast caught a hoof between two smooth stones and lost its footing. The cart tilted and flipped. Two men lunged forward. One of them let go of the guide line for a few frantic seconds. It was enough.</p>
+            <p>Noah's mother was wading directly behind. The eight-year-old boy was clinging to her skirt. When the line went slack, she lost her balance. Noah stumbled, his feet slipping into the deep channel where there were no stones. The brutal current tore his legs out from under him. The woman caught his sleeve for one desperate breath, and then it ripped from her fingers.</p>
+            <p>— Noah! — Silas bellowed, frozen in terror.</p>
+            <p>Elias was already running. He threw his coat to the mud as he sprinted. Tomás screamed: “Wait for the rope!” Elias didn't even look back. He raced along the bank to gain angle, then threw himself sideways into the torrent, letting the rushing waters carry him downriver at terrifying speed.</p>
+            <p>Noah surfaced, choking, then disappeared. Elias dived. For long, agonizing seconds, no one saw either of them in the churning gray froth.</p>
+            <p>Then Elias broke the surface. He had his thick arm clamped around Noah's chest. The river dragged both of them toward jagged riverbed stones. At the bend, an old drowned willow had thick roots clawing into the bank. Elias caught one. His hand slipped—then gripped like iron.</p>
+            <p>— ROPE! — he roared through the spray.</p>
+            <p>Tomás ran, coiled hemp in hand, and hurled the line. It fell near. Elias didn't release Noah. Tomás hauled and threw again. This time Elias looped his elbow through the bite of the rope.</p>
+            <p>— Pull the boy!</p>
+            <p>They hauled Noah up first. Then Elias. The boy collapsed into the mud, limp. His mother threw herself over him, weeping. Elias crawled over on hands and knees, rolled the boy over, and pressed his back with weight. Noah coughed. Once. Twice. Water poured from his mouth, followed by a rasping breath.</p>
+            <p>Silas sank to his knees in the mud, clutching Elias's shoulder without words. Tomás reached his dripping, shivering friend: “You're an idiot. You could have gone under with him.” Elias wiped the silt from his face: “I could have... But it proves I can still swim.”</p>
+          </div>
+          <div class="page-number-footer">Page 5</div>
+        </div>
+        `,
+        `
+        <div class="page-inner">
+          <div class="page-header-strip"><span>CHAPTER 1</span><span>PART VI: FLASH FLOOD FROM THE CRAGS</span></div>
+          <h3 class="page-chapter-title">The Fury of the Waters</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">The mountain downpour thickened violently after that. The waterline was already creeping over the stepping stones. Marta, Ruth, and Samuel crossed safely. Elias refused to leave his post: “Five minutes. There are still people on this side.”</p>
+            <p>The penultimate cart entered the riverbed loaded with iron tools and two kegs. Suddenly, a sound echoed from the high mountain gorge—a sound like an entire hillside collapsing. Elias looked upriver. His face changed in an instant.</p>
+            <p>— Get out of the water. GET OUT OF THE WATER!</p>
+            <p>The flash flood struck with unfathomable fury. A black wall of surging water brought down torn pine boughs, mountain boulders, and thick sludge. The wagon tumbled in a violent roll; a dislodged keg struck a pioneer, who disappeared beneath the foam. Elias leaped through the surge and hoisted him onto a high boulder: “Hold on!”</p>
+            <p>That was when the massive trunk came. Torn out by its deep roots, it swept down spinning like a battering ram. It didn't hit Elias directly, but the shockwave of water slammed him off his feet. He lost the bottom and grabbed the guide rope with both hands.</p>
+            <p>Tomás sprinted desperately along the bank, hauling with two other men: “HOLD ON! DON'T LET GO!”</p>
+            <p>The crushing weight of the river pulled Elias downward like an anchor. Froth broke across his mouth and nose. One wet hand slipped from the hemp. He clawed back, but the second hand opened. The current ripped him away.</p>
+            <p>Tomás dropped the line and raced down the rocky bank screaming: “ELIAS!”</p>
+            <p>Elias's head surfaced far below. He was thrown hard against a rock, vanished, and reappeared three hundred yards down, fighting to keep his eyes open. He managed to clasp a slick boulder. Tomás uncoiled the spare rope and threw with everything left in his shoulders. It fell short.</p>
+            <blockquote class="manuscript-quote">“Elias turned his head and looked at him. Tomás never forgot that look. There was no heroism in it. No calm. It was terror.”</blockquote>
+            <p>The river crested over the stone. Elias's fingers gave way, and the dark water swallowed him into the winding shadow of the gorge.</p>
+          </div>
+          <div class="page-number-footer">Page 6</div>
+        </div>
+        `,
+        `
+        <div class="page-inner page-epilogue">
+          <div class="page-header-strip"><span>CHAPTER 1</span><span>PART VII: THE FAR BANK</span></div>
+          <h3 class="page-chapter-title">The Silence of the Night</h3>
+          <div class="page-body-text">
+            <p class="drop-cap">Tomás ran along the embankment until the ravine narrowed and the pines choked off the path. He screamed into the darkness until his voice tore into a ragged whisper. Silas caught up with him in the twilight.</p>
+            <p>— Tomás... It's night. The water is still rising.<br>— He can swim! You saw Noah. He can swim!<br>Silas only cast his eyes downward.</p>
+            <p>They searched until blackness consumed the valley. They found nothing of Elias. Not his wool coat, not a boot, not a drop of blood. Only the indifferent roar of the water.</p>
+            <p>When Tomás crossed back to the camp, low fires flickered against the damp wind. Marta stood apart, alone. Ruth slept wrapped in Helena's wool blanket. Samuel sat watching the flames. Marta turned to Tomás:</p>
+            <p>— Where did you see him last?<br>— Three hundred paces down. Maybe more.<br>She nodded with a steady, devastating calm:<br>— Tomorrow we search.</p>
+            <p>There was nothing left to say. Helena cleaned the deep cut on Tomás's forearm in silence. Daniel sat motionless by the fire, staring into the black river, perhaps waiting for Elias to come walking out of the pines, dripping wet and complaining that no one had saved him any stew.</p>
+            <p>From the shadows, Samuel's small voice broke the silence:</p>
+            <p>— Mother... Did father know where we were camping?<br>— He knew, — Marta whispered.<br>— Then he'll come back?<br>She pulled the blanket over the boy's shoulders.<br>— Go to sleep, Samuel. Sleep.</p>
+            <blockquote class="manuscript-quote" style="border-left: 3px solid #8c251d; font-weight: 600; margin-top: 24px; color: #1f180e;">
+              Nobody slept properly that night.<br>The river did not recede.<br>And Elias did not return.
+            </blockquote>
+          </div>
+          <div class="page-number-footer">Page 7</div>
+        </div>
+        `
+      ]
+    }
+  };
+
+  let bookLang = 'pt';
+  try {
+    const saved = localStorage.getItem('unnamed_book_lang') || localStorage.getItem('unnamed_world_lang');
+    if (saved === 'en' || saved === 'pt') bookLang = saved;
+  } catch (e) {}
 
   let currentPage = 0;
-  const totalPages = pages.length;
+  const totalPages = embeddedBookContent.pt.pages.length;
+
+  function renderPages() {
+    const langData = embeddedBookContent[bookLang] || embeddedBookContent.pt;
+
+    // Render inner HTML of all book pages
+    pagesContainer.innerHTML = '';
+    langData.pages.forEach((html, idx) => {
+      const pageEl = document.createElement('div');
+      pageEl.className = `book-page ${idx === currentPage ? 'active' : ''}`;
+      pageEl.setAttribute('data-index', idx);
+      pageEl.innerHTML = html;
+      pagesContainer.appendChild(pageEl);
+    });
+
+    // Update tab labels
+    tabs.forEach((tab, idx) => {
+      if (langData.tabs[idx]) {
+        tab.textContent = langData.tabs[idx];
+      }
+      tab.classList.toggle('active', idx === currentPage);
+    });
+
+    // Update buttons & counter
+    if (btnPrev) {
+      const prevSpan = btnPrev.querySelector('span');
+      if (prevSpan) prevSpan.textContent = langData.btnPrev;
+      btnPrev.disabled = (currentPage === 0);
+    }
+    if (btnNext) {
+      const nextSpan = btnNext.querySelector('span');
+      if (nextSpan) nextSpan.textContent = langData.btnNext;
+      btnNext.disabled = (currentPage === totalPages - 1);
+    }
+    if (counter) {
+      counter.textContent = langData.counter.replace('{cur}', currentPage + 1).replace('{tot}', totalPages);
+    }
+
+    // Update active state on language switch buttons
+    if (btnLangPt) btnLangPt.classList.toggle('active', bookLang === 'pt');
+    if (btnLangEn) btnLangEn.classList.toggle('active', bookLang === 'en');
+  }
 
   function goToPage(index) {
     if (index < 0 || index >= totalPages) return;
     currentPage = index;
 
-    pages.forEach((page, i) => {
-      page.classList.toggle('active', i === currentPage);
+    const pageEls = pagesContainer.querySelectorAll('.book-page');
+    pageEls.forEach((p, i) => {
+      p.classList.toggle('active', i === currentPage);
     });
 
     tabs.forEach((tab) => {
@@ -1048,15 +1502,14 @@ function initInteractiveBookReader() {
       tab.classList.toggle('active', pageIndex === currentPage);
     });
 
+    const langData = embeddedBookContent[bookLang] || embeddedBookContent.pt;
     if (counter) {
-      const isPt = (typeof currentLang !== 'undefined' && currentLang === 'pt');
-      counter.textContent = isPt ? `Página ${currentPage + 1} de ${totalPages}` : `Page ${currentPage + 1} of ${totalPages}`;
+      counter.textContent = langData.counter.replace('{cur}', currentPage + 1).replace('{tot}', totalPages);
     }
 
     if (btnPrev) btnPrev.disabled = (currentPage === 0);
     if (btnNext) btnNext.disabled = (currentPage === totalPages - 1);
 
-    // Subtle page flip animation
     if (tome) {
       tome.style.transition = 'transform 0.15s ease';
       tome.style.transform = 'scale(0.996)';
@@ -1067,12 +1520,8 @@ function initInteractiveBookReader() {
   }
 
   // Next / Prev Button events
-  if (btnPrev) {
-    btnPrev.addEventListener('click', () => goToPage(currentPage - 1));
-  }
-  if (btnNext) {
-    btnNext.addEventListener('click', () => goToPage(currentPage + 1));
-  }
+  if (btnPrev) btnPrev.addEventListener('click', () => goToPage(currentPage - 1));
+  if (btnNext) btnNext.addEventListener('click', () => goToPage(currentPage + 1));
 
   // Chapter Tabs click events
   tabs.forEach(tab => {
@@ -1081,6 +1530,30 @@ function initInteractiveBookReader() {
       goToPage(pageIndex);
     });
   });
+
+  // Language switch buttons
+  if (btnLangPt) {
+    btnLangPt.addEventListener('click', () => {
+      bookLang = 'pt';
+      try { localStorage.setItem('unnamed_book_lang', 'pt'); } catch (e) {}
+      renderPages();
+    });
+  }
+  if (btnLangEn) {
+    btnLangEn.addEventListener('click', () => {
+      bookLang = 'en';
+      try { localStorage.setItem('unnamed_book_lang', 'en'); } catch (e) {}
+      renderPages();
+    });
+  }
+
+  // Global language synchronization
+  window.updateBookReaderLanguage = function(targetLang) {
+    if (targetLang === 'pt' || targetLang === 'en') {
+      bookLang = targetLang;
+      renderPages();
+    }
+  };
 
   // Keyboard navigation when near the book section
   window.addEventListener('keydown', (e) => {
@@ -1097,6 +1570,7 @@ function initInteractiveBookReader() {
     }
   });
 
+  renderPages();
   goToPage(0);
 }
 

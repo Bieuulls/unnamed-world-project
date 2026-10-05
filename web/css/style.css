@@ -97,18 +97,20 @@ img {
 
 .nav-container {
   width: 100%;
-  max-width: var(--max-width);
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 clamp(14px, 2vw, 28px);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 14px;
 }
 
 .brand-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .brand-icon {
@@ -121,6 +123,7 @@ img {
   align-items: center;
   justify-content: center;
   color: var(--gold-primary);
+  flex-shrink: 0;
 }
 
 .brand-text-group {
@@ -130,36 +133,47 @@ img {
 
 .brand-title {
   font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   color: #fff;
+  white-space: nowrap;
 }
 
 .brand-status {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   color: var(--gold-primary);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: clamp(10px, 1.4vw, 22px);
   list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 1;
+}
+
+.nav-item {
+  flex-shrink: 0;
 }
 
 .nav-item a {
   font-family: var(--font-serif);
-  font-size: 0.8rem;
+  font-size: clamp(0.72rem, 0.8vw, 0.78rem);
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
   padding: 6px 0;
   position: relative;
+  white-space: nowrap;
+  display: block;
 }
 
 .nav-item a:hover,
@@ -181,27 +195,50 @@ img {
 .nav-actions-group {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: clamp(6px, 0.9vw, 12px);
   flex-shrink: 0;
+}
+
+.btn-nav-discord {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(88, 101, 242, 0.15);
+  border: 1px solid rgba(88, 101, 242, 0.35);
+  color: #e0e4fd;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.btn-nav-discord:hover {
+  background: rgba(88, 101, 242, 0.3);
+  border-color: #5865f2;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(88, 101, 242, 0.35);
 }
 
 /* Luxury Compact Language Dropdown */
 .lang-dropdown-wrapper {
   position: relative;
+  flex-shrink: 0;
 }
 
 .lang-luxury-btn {
   background: rgba(13, 18, 25, 0.85);
   border: 1px solid var(--border-gold);
   border-radius: 999px;
-  padding: 8px 14px;
+  padding: 7px 12px;
   color: var(--gold-light);
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -304,23 +341,53 @@ img {
   white-space: nowrap;
   flex-shrink: 0;
   border: 1px solid var(--gold-primary);
-  background: rgba(212, 175, 55, 0.08);
-  padding: 9px 22px;
+  background: rgba(212, 175, 55, 0.1);
+  padding: 7px 16px;
   border-radius: 999px;
   font-family: var(--font-serif);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--gold-light);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  transition: all 0.2s ease;
 }
 
 .btn-nav-action:hover {
-  background: rgba(212, 175, 55, 0.22);
+  background: rgba(212, 175, 55, 0.25);
   border-color: #fff;
   transform: translateY(-1px);
+}
+
+@media (max-width: 1240px) {
+  .nav-menu {
+    gap: 12px;
+  }
+  .nav-item a {
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+  }
+  .brand-title {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 1080px) {
+  .nav-menu {
+    gap: 8px;
+  }
+  .btn-nav-discord span {
+    display: none;
+  }
+  .btn-nav-discord {
+    padding: 7px 9px;
+  }
+  .btn-nav-action {
+    padding: 6px 12px;
+    font-size: 0.68rem;
+  }
 }
 
 /* ==========================================================================
@@ -1195,6 +1262,40 @@ img {
 
 .immersive-icon {
   font-size: 1.15rem;
+}
+
+/* Book Language Switch Row */
+.book-lang-switch-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px auto 6px auto;
+}
+
+.btn-book-lang-tab {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-gold);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-book-lang-tab.active {
+  background: var(--gold-primary);
+  color: #0b0906;
+  font-weight: 700;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+  border-color: var(--gold-primary);
+}
+
+.btn-book-lang-tab:hover:not(.active) {
+  background: rgba(212, 175, 55, 0.15);
+  color: #ffffff;
 }
 
 /* Chapter Navigation Tabs */
